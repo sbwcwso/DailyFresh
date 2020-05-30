@@ -1,0 +1,183 @@
+{% extends "base_detal_list.html" %}
+{% load staticfiles %}
+{% block title %}天天生鲜-商品详情{% endblock %}
+
+{% block main_content %}
+	<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+		<a href="{% url 'goods:list' sku.type.id 1%}">{{ sku.type.name }}</a>
+		<span>></span>
+		<a href="#">商品详情</a>
+	</div>
+
+	<div class="goods_detail_con clearfix">
+		<div class="goods_detail_pic fl"><img src="{{ sku.image.url }} " style="max-width: 100%"></div>
+
+		<div class="goods_detail_list fr">
+			<h3>{{ sku.goods.name }}</h3>
+			<p>{{ sku.desc }}</p>
+			<div class="prize_bar">
+				<span class="show_pirze">¥<em>{{ sku.price }}</em></span>
+				<span class="show_unit">单  位：{{ sku.unite }}</span>
+			</div>
+			<div class="goods_num clearfix">
+				<div class="num_name fl">数 量：</div>
+				<div class="num_add fl">
+					<input type="text" class="num_show fl" value="1">
+					<a href="javascript:" class="add fr">+</a>
+					<a href="javascript:" class="minus fr">-</a>
+				</div>
+                {% if same_spus|length > 0 %}
+                    <div style="font:normal 14px/52px 'Microsoft Yahei'; text-align: center;" >
+                    <span>其它规格商品:&nbsp;&nbsp;&nbsp;</spanst>
+                    {% for same_spu in same_spus %}
+                        <a href="{% url 'goods:detail' same_spu.id %}">{{ same_spu.name }}</a>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+			</div>
+			<div class="total">总价：<em>{{ sku.price }}</em></div>
+			<div class="operate_btn">
+                {# <a href="javascript:;" class="buy_btn">立即购买</a>#}
+				<a href="javascript:;" class="add_cart" id="add_cart" sku_id="{{ sku.id }}">加入购物车</a>
+                {% csrf_token %}
+			</div>
+		</div>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+                    {% for sku in new_skus %}
+                    <li>
+						<a href="{% url 'goods:detail' sku.id %}"><img src="{{ sku.image.url }}"></a>
+						<h4><a href="{% url 'goods:detail' sku.id %}">{{ sku.goods.name }}</a></h4>
+						<div class="prize">￥{{ sku.price }}</div>
+					</li>
+                    {% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<ul class="detail_tab clearfix">
+				<li class="active" id="tag_detail">商品介绍</li>
+				<li id="tag_comment">评论</li>
+			</ul>
+
+			<div class="tab_content" id="tab_detail">
+				<dl>
+					<dt>商品详情：</dt>
+					<dd>{{ sku.goods.detail|safe }}</dd>
+				</dl>
+			</div>
+
+            <div class="tab_content" id="tab_comment" style="display: none;">
+                <dl>
+                    {% for comment in sku_comments %}
+                        <dt>评论时间：{{ comment.update_time }} &nbsp;&nbsp;用户:{{ comment.order.user.username }}</dt>
+                        <dd>{{ comment.comment }}</dd>
+                        {% empty %}
+                            <span style="text-align:center;display: block;margin: 20px auto;">暂无评论</span>
+                    {% endfor %}
+                </dl>
+            </div>
+
+		</div>
+	</div>
+{% endblock main_content %}
+{% block bottom %}
+	<div class="add_jump"></div>
+{% endblock bottom %}
+{% block bottomfiles %}
+	<script type="text/javascript" src={% static "js/jquery-1.12.4.min.js" %}></script>
+	<script type="text/javascript">
+        update_total_price();
+
+        function update_total_price(){
+            let price = $('.show_pirze').children('em').text();
+            let count = $('.num_show').val();
+
+            let total_price = parseFloat(price) * parseInt(count);
+
+            $(".total").children('em').text("￥" + total_price.toFixed(2))
+        }
+
+
+        $('#add_cart').click(function () {
+            {#发动 ajax 请求,添加购物车#}
+            {#获取商品的 sku_id 和 添加数目 以及 csrf_token#}
+            let sku_id = $(this).attr("sku_id");
+            let count = $('.num_show').val();
+            let csrf_token = $("input[name='csrfmiddlewaretoken']").val();
+            let post_data = {sku_id: sku_id, count: count, csrfmiddlewaretoken: csrf_token};
+            $.post("{% url 'cart:add_cart' %}", post_data, function(data){
+                    if(data.res != 4){
+                        alert(data.error_msg)
+                    }
+                    else{
+                        let $add_x = $('#add_cart').offset().top;
+                        let $add_y = $('#add_cart').offset().left;
+
+                        let $to_x = $('#show_count').offset().top;
+                        let $to_y = $('#show_count').offset().left;
+                        {#购物车添加动画#}
+                        $(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'});
+                        $(".add_jump").stop().animate({
+                                    'left': $to_y+7,
+                                    'top': $to_x+7},
+                                "fast", function() {
+                                    $(".add_jump").fadeOut('fast',function(){
+                                        {#更新购物车的数目#}
+                                        $('#show_count').html(data.goods_num);
+                                    });
+
+                                });
+                    }
+            });
+        });
+
+        $(".add").click(function(){
+            let count = $('.num_show').val();
+            count = parseInt(count) + 1;
+            $('.num_show').val(count);
+            update_total_price();
+        });
+
+        $(".minus").click(function(){
+            let count = $('.num_show').val();
+            count = parseInt(count) - 1;
+            if(count <= 0) count = 1;
+            $('.num_show').val(count);
+            update_total_price();
+        });
+
+        $(".num_show").blur(function () {
+            let count = $(this).val();
+            {#  检验输入是否可法  #}
+            if( isNaN(count) || count.trim().length == 0 || parseInt(count)<=0) count = 1;
+            $(this).val(parseInt(count));
+            update_total_price();
+        });
+
+        $("#tag_comment").click(function(){
+            $("#tag_detail").removeClass("active");
+            $(this).addClass("active");
+            $("#tab_comment").show();
+            $("#tab_detail").hide();
+        });
+
+        $("#tag_detail").click(function(){
+            $("#tag_comment").removeClass("active");
+            $(this).addClass("active");
+            $("#tab_detail").show();
+            $("#tab_comment").hide();
+        });
+
+
+
+    </script>
+{% endblock bottomfiles %}

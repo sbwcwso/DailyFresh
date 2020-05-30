@@ -1,0 +1,93 @@
+{% extends 'static_base.html' %}
+{% load staticfiles %}
+{% block topfiles %}
+	<script type="text/javascript" src={% static "js/jquery-1.12.4.min.js" %}></script>
+	<script type="text/javascript" src={% static "js/jquery-ui.min.js"%}></script>
+	<script type="text/javascript" src={% static  "js/slide.js" %}></script>
+{% endblock topfiles %}
+{% block body %}
+	<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">全部商品分类</h1>
+			<ul class="navlist fl">
+				<li><a href="{% url 'goods:index' %}">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="center_con clearfix">
+		<ul class="subnav fl">
+            {% for type in types %}
+			<li><a href="#model0{{ forloop.counter }}" class="{{ type.logo }}">{{ type.name }}</a></li>
+            {% endfor %}
+		</ul>
+		<div class="slide fl">
+			<ul class="slide_pics">
+                {% for banner in banners %}
+				<li><a href="{% url 'goods:detail' banner.sku.id %}"><img src="{{ banner.image.url }}" alt="幻灯片"></a></li>
+                {% endfor %}
+			</ul>
+			<div class="prev"></div>
+			<div class="next"></div>
+			<ul class="points"></ul>
+		</div>
+		<div class="adv fl">
+            {% for promotion_banner in promotion_banners %}
+			<a href="#"><img src={{ promotion_banner.image.url }}></a>
+            {% endfor %}
+		</div>
+	</div>
+    {% for type in types %}
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model0{{ forloop.counter }}">
+                <a href="{% url 'goods:list' type.id 1 %}" >{{ type.name }}</a>
+            </h3>
+			<div class="subtitle fl">
+				<span>|</span>
+                {% for title in type.titles %}
+				<a href="{% url 'goods:detail' title.sku.id%}">{{ title.sku.name }}</a>
+                {% endfor %}
+			</div>
+			<a href="{% url 'goods:list' type.id 1 %}" class="goods_more fr" id="fruit_more">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<div class="goods_banner fl">
+                <a href="{% url 'goods:list' type.id 1 %}" ><img src={{ type.image.url }}></a>
+            </div>
+			<ul class="goods_list fl">
+                {% for image in type.images %}
+				<li>
+					<h4><a href="{% url 'goods:detail' image.sku.id %}">{{ image.sku.name }}</a></h4>
+					<a href="{% url 'goods:detail' image.sku.id %}"><img src={{ image.sku.image.url }}></a>
+					<div class="prize">¥ {{ image.sku.price }}</div>
+				</li>
+                {% endfor %}
+			</ul>
+		</div>
+	</div>
+    {% endfor %}
+{% endblock body %}
+{% block bottomfiles %}
+    <script>
+        $.get("{% url 'goods:index' %}", {'get_info': '1'}, function(data){
+            if(data.res == 1){
+                $(".login_btn").eq(0).show();
+                $(".login_btn").eq(0).find("em").text(data.username);
+                $(".login_btn").eq(1).hide();
+                $("#show_count").text(data.cart_num);
+            }
+            else{
+                $(".login_btn").eq(0).hide();
+                $(".login_btn").eq(1).show();
+                $("#show_count").text(0);
+            }
+        } )
+    </script>
+{% endblock bottomfiles %}
+

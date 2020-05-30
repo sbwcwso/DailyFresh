@@ -1,0 +1,123 @@
+{% extends "base_user_center.html" %}
+{% load staticfiles %}
+{% block right_content %}
+    {% csrf_token %}
+    <div class="right_content clearfix">
+        <h3 class="common_title2">全部订单</h3>
+    {% for order in current_page.object_list %}
+        <ul class="order_list_th w978 clearfix">
+            <li class="col01">{{ order.create_time }}</li>
+            <li class="col02">订单号：{{ order.order_id }}</li>
+            <li class="col02 stress" >{{ order.status_name }}</li>
+        </ul>
+
+        <table class="order_list_table w980">
+            <tbody>
+            <tr>
+                <td width="55%">
+                    {% for good in order.goods %}
+                        <ul class="order_goods_list clearfix">
+                            <li class="col01"><a href="{% url 'goods:detail' good.sku.id %}">
+                                <img src="{{ good.sku.image.url }}" alt='商品图片'>
+                            </a></li>
+                            <li class="col02">
+                                <a href="{% url 'goods:detail' good.sku.id %}" style="color: #666;">
+                                    {{ good.sku.name }}
+                                </a>
+                                <em>{{ good.sku.price }}元/{{ good.sku.unite }}</em>
+                            </li>
+                            <li class="col03">{{ good.count }}</li>
+                            <li class="col04">{{ good.price }}元</li>
+                        </ul>
+                    {% endfor %}
+                </td>
+                <td width="15%">{{ order.total_price }}元<br />(含运费{{ order.transit_price }}元)</td>
+                <td width="15%">{{ order.status_name }}</td>
+                <td width="15%"><a href="javascript:" class="oper_btn" order_id={{ order.order_id }}
+                        order_status={{ order.order_status }} >去付款</a></td>
+            </tr>
+            </tbody>
+        </table>
+        {% empty %}
+            <span style="display: block; margin: 40px auto 0; text-align: center">暂没有订单</span>
+    {% endfor %}
+
+        <div class="pagenation">
+            {% if current_page.object_list %}
+                {% if current_page.has_previous %}
+                    <a href="{% url 'user:order' current_page.previous_page_number %}?sort={{ sort }}"><上一页</a>
+                {% endif %}
+                {% for page_num in page_range %}
+                    <a href="{% url 'user:order' page_num %}?sort={{ sort }}"
+                       {% if page_num == current_page.number %}class="active"{% endif %}>{{ page_num }}</a>
+                {% endfor %}
+                {% if current_page.has_next %}
+                    <a href="{% url 'user:order' current_page.next_page_number %}?sort={{ sort }}">下一页></a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock right_content %}
+{% block bottom %}
+    <div class="popup_con">
+        <div class="popup">
+            <p>正在查询支付状态, 请稍候...</p>
+        </div>
+
+        <div class="mask"></div>
+    </div>
+{% endblock bottom %}
+{% block bottomfiles %}
+    <script src="{% static 'js/jquery-1.12.4.min.js'%}"></script>
+    <script>
+        $(".oper_btn").each(function(){
+            let order_status = $(this).attr("order_status");
+            if(order_status == 1) $(this).text("去付款");
+            else if(order_status == 2) $(this).text("退款");
+            else if(order_status == 3) $(this).text("查看物流");
+            else if(order_status == 4) $(this).text("评价");
+            else if(order_status == 5) $(this).text("已完成");
+        });
+
+        $(".oper_btn").click(function(){
+            let order_status = $(this).attr("order_status");
+            let order_id = $(this).attr("order_id");
+            let csrfmiddlewaretoken = $("input[name='csrfmiddlewaretoken']").val();
+            let paras = {
+                'order_id': order_id,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            };
+            if(order_status == 1){
+                $.post("{% url 'order:pay' %}", paras, function(data){
+                    if(data.res == 0){
+                        {#window.open(data.pay_url);#}
+                        location.href = data.pay_url;
+                        {#查询支付结果#}
+                        /*
+                        $('.popup_con').fadeIn('fast');
+                        $.post("{% url 'order:check' %}", paras, function(data){
+                            if(data.res == 0){
+                                $('.popup_con').fadeOut('fast');
+                                alert("支付成功");
+                                location.reload()
+                            }
+                            else{
+                                $('.popup_con').fadeOut('fast');
+                                alert(data.errmsg);
+                            }
+
+                        });
+                        */
+                    }
+                    else{
+                        alert(data.errmsg);
+                    }
+                });
+            }
+            else if(order_status == 4){
+                {#跳转到评论界面#}
+                location.href = "/order/comment/" + order_id
+            }
+        });
+    </script>
+{% endblock bottomfiles %}
