@@ -1,7 +1,6 @@
 from django.db import models
 from db.base_model import BaseModel
 from tinymce.models import HTMLField
-# Create your models here.
 
 
 class GoodsType(BaseModel):
@@ -12,8 +11,7 @@ class GoodsType(BaseModel):
 
     class Meta:
         db_table = 'df_goods_type'
-        verbose_name = '商品种类'
-        verbose_name_plural = verbose_name
+        verbose_name_plural = verbose_name = '商品种类'
 
     def __str__(self):
         return self.name
@@ -25,6 +23,7 @@ class GoodsSKU(BaseModel):
         (0, '下线'),
         (1, '上线'),
     )
+
     type = models.ForeignKey('GoodsType', verbose_name='商品种类', on_delete=models.CASCADE)
     goods = models.ForeignKey('Goods', verbose_name='商品SPU', on_delete=models.CASCADE)
     name = models.CharField(max_length=20, verbose_name='商品名称')
@@ -41,8 +40,7 @@ class GoodsSKU(BaseModel):
 
     class Meta:
         db_table = 'df_goods_sku'
-        verbose_name = '商品'
-        verbose_name_plural = verbose_name
+        verbose_name_plural = verbose_name = '商品'
 
 
 class Goods(BaseModel):
@@ -53,8 +51,7 @@ class Goods(BaseModel):
 
     class Meta:
         db_table = 'df_goods'
-        verbose_name = '商品SPU'
-        verbose_name_plural = verbose_name
+        verbose_name_plural = verbose_name = '商品SPU'
 
 
 class GoodsImage(BaseModel):
@@ -76,8 +73,7 @@ class IndexGoodsBanner(BaseModel):
 
     class Meta:
         db_table = 'df_index_banner'
-        verbose_name = '首页轮播商品'
-        verbose_name_plural = verbose_name
+        verbose_name_plural = verbose_name = '首页轮播商品'
 
 
 class IndexTypeGoodsBanner(BaseModel):
@@ -107,5 +103,4 @@ class IndexPromotionBanner(BaseModel):
 
     class Meta:
         db_table = 'df_index_promotion'
-        verbose_name = "主页促销活动"
-        verbose_name_plural = verbose_name
+        verbose_name_plural = verbose_name = "主页促销活动"

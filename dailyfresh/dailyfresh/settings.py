@@ -87,8 +87,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dailyfresh',
         'USER': 'root',
-        'PASSWORD': '123',
-        'HOST': '192.168.10.108',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
         'PORT': 3306,
         # 'OPTIONS': {'isolation_level': None},
     }
@@ -114,7 +114,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT= '/var/www/dailyfresh/static'
+STATIC_ROOT = '/var/www/dailyfresh/static'
 
 
 # 富文本编辑器配置
