@@ -1,10 +1,14 @@
-from django.db import models
-from db.base_model import BaseModel
 from tinymce.models import HTMLField
+
+from django.db import models
+
+from db.base_model import BaseModel
 
 
 class GoodsType(BaseModel):
-    """商品类型模型类"""
+    """
+    商品类型模型类
+    """
     name = models.CharField(max_length=20, verbose_name='种类名称')
     logo = models.CharField(max_length=20, verbose_name='标识')
     image = models.ImageField(upload_to='type', verbose_name='商品类型图片')
@@ -18,7 +22,9 @@ class GoodsType(BaseModel):
 
 
 class GoodsSKU(BaseModel):
-    """商品SKU模型类"""
+    """
+    商品SKU模型类
+    """
     status_choices = (
         (0, '下线'),
         (1, '上线'),
@@ -44,7 +50,9 @@ class GoodsSKU(BaseModel):
 
 
 class Goods(BaseModel):
-    """商品SPU模型类"""
+    """
+    商品SPU模型类
+    """
     name = models.CharField(max_length=20, verbose_name='商品SPU名称')
     # 富文本类型:带有格式的文本
     detail = HTMLField(blank=True, verbose_name='商品详情')
@@ -55,7 +63,9 @@ class Goods(BaseModel):
 
 
 class GoodsImage(BaseModel):
-    """商品图片模型类"""
+    """
+    商品图片模型类
+    """
     sku = models.ForeignKey('GoodsSKU', verbose_name='商品', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='goods', verbose_name='图片路径')
 
@@ -66,7 +76,9 @@ class GoodsImage(BaseModel):
 
 
 class IndexGoodsBanner(BaseModel):
-    """首页轮播商品展示模型类"""
+    """
+    首页轮播商品展示模型类
+    """
     sku = models.ForeignKey('GoodsSKU', verbose_name='商品', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='banner', verbose_name='图片')
     index = models.SmallIntegerField(default=0, verbose_name='展示顺序')  # 0 1 2 3
@@ -77,7 +89,9 @@ class IndexGoodsBanner(BaseModel):
 
 
 class IndexTypeGoodsBanner(BaseModel):
-    """首页分类商品展示模型类"""
+    """
+    首页分类商品展示模型类
+    """
     DISPLAY_TYPE_CHOICES = (
         (0, "标题"),
         (1, "图片")
@@ -95,7 +109,9 @@ class IndexTypeGoodsBanner(BaseModel):
 
 
 class IndexPromotionBanner(BaseModel):
-    """首页促销活动模型类"""
+    """
+    首页促销活动模型类
+    """
     name = models.CharField(max_length=20, verbose_name='活动名称')
     url = models.CharField(max_length=256, verbose_name='活动链接')
     image = models.ImageField(upload_to='banner', verbose_name='活动图片')

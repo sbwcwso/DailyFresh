@@ -3,12 +3,19 @@
 # import django
 # os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dailyfresh.settings")
 # django.setup()
+
+import os
+
 from celery import Celery
+
 from django.conf import settings
 from django.core.mail import send_mail
-from goods.models import GoodsType, IndexGoodsBanner, IndexTypeGoodsBanner, IndexPromotionBanner
 from django.template import loader
-import os
+
+from goods.models import (
+    GoodsType, IndexGoodsBanner,
+    IndexTypeGoodsBanner, IndexPromotionBanner
+)
 
 # 创建一个 Celery 类的实例对象
 app = Celery('celery_tasks.task', broker="redis://192.168.10.108:6379/8")
@@ -16,15 +23,16 @@ app = Celery('celery_tasks.task', broker="redis://192.168.10.108:6379/8")
 
 @app.task
 def send_register_active_email(to_email, username, token):
-    """发送激活邮件"""
+    """
+    发送激活邮件
+    """
     subject = "天天生鲜账户激活: %s" % username
     sender = settings.EMAIL_FROM
-    receiver = [to_email]
-    message = ''
+    receiver = [to_email]  # 收件人列表
     begin_url = "http://dailyfresh.ignorelist.com/user/active/%s" % token
     html_message = """<h1>欢迎成为天天生鲜会员</h1><br />请点击以下链接激活您的账户:<br />
         <a href='%s'>%s</a><br /> 该激活链接 1 小时内有效""" % (begin_url, begin_url)
-    send_mail(subject=subject, message=message, from_email=sender, recipient_list=receiver,
+    send_mail(subject=subject, from_email=sender, recipient_list=receiver,
               html_message=html_message)
 
 

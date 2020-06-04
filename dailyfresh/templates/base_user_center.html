@@ -1,4 +1,4 @@
-{#用户中心页面#}
+{#用户中心个人信息，全部订单，收货地址页面#}
 {% extends 'base_no_cart.html' %}
 {% block title %}天天生鲜-用户中心{% endblock title %}
 
@@ -14,7 +14,7 @@
                 <li><a href="{% url 'user:site' %}" {% if page == 'site' %}class="active"{% endif %}>· 收货地址</a></li>
 			</ul>
 		</div>
-
+        {# 用户中心右侧内容块 #}
         {% block right_content %}{% endblock right_content %}
 </div>
 {% endblock body %}

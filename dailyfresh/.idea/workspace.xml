@@ -20,15 +20,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41bc7585-b4f9-4c0f-9cdf-41b84f7a2126" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dailyfresh.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dailyfresh.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/lijunjie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/lijunjie.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/goods/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/order/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/order/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/celery_task/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/celery_task/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dailyfresh/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dailyfresh/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailyfresh/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dailyfresh/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base_detal_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_detal_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base_no_cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_no_cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base_user_center.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_user_center.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user_center_site.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user_center_site.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/mixin.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/mixin.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +68,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -70,7 +80,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -175,7 +185,7 @@
       <workItem from="1557660858748" duration="14235000" />
       <workItem from="1557804555444" duration="4982000" />
       <workItem from="1559871432361" duration="30000" />
-      <workItem from="1590883566403" duration="10720000" />
+      <workItem from="1590883566403" duration="55499000" />
     </task>
     <servers />
   </component>
@@ -203,9 +213,13 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="475" y="187" key="SettingsEditor" timestamp="1590883777126">
+    <state x="894" y="402" width="857" height="301" key="#Vim_Emulation" timestamp="1590922178417">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="475" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1590883777126" />
+    <state x="894" y="402" width="857" height="301" key="#Vim_Emulation/67.27.1853.1053@67.27.1853.1053" timestamp="1590922178417" />
+    <state x="475" y="187" key="SettingsEditor" timestamp="1590921867070">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="475" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1590921867070" />
   </component>
 </project>
