@@ -20,24 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41bc7585-b4f9-4c0f-9cdf-41b84f7a2126" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/lijunjie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/lijunjie.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/goods/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/order/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/order/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/celery_task/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/celery_task/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailyfresh/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dailyfresh/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailyfresh/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dailyfresh/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base_detal_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_detal_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base_no_cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_no_cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base_user_center.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_user_center.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user_center_site.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user_center_site.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/mixin.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/mixin.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +169,7 @@
       <workItem from="1557660858748" duration="14235000" />
       <workItem from="1557804555444" duration="4982000" />
       <workItem from="1559871432361" duration="30000" />
-      <workItem from="1590883566403" duration="55499000" />
+      <workItem from="1590883566403" duration="59671000" />
     </task>
     <servers />
   </component>

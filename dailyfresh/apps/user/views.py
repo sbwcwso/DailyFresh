@@ -197,8 +197,8 @@ class UserInfoView(LoginRequiredMixin, View):
         # 获取用户浏览的历史记录
         con = get_redis_connection("default")
         history_key = 'history_%d' % user.id
-
         # 获取用户浏览的最近五个商品
+        # do: 显示所有的浏览记录
         sku_ids = con.lrange(history_key, 0, 4)
         # 按顺序查询
         goods_li = list()
