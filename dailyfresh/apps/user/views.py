@@ -1,16 +1,16 @@
 import re
 
+from django_redis import get_redis_connection
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, SignatureExpired
+
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.views.generic import View
 
-from django_redis import get_redis_connection
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from itsdangerous import SignatureExpired
 
 from celery_task.tasks import send_register_active_email
 from goods.models import GoodsSKU
@@ -198,8 +198,7 @@ class UserInfoView(LoginRequiredMixin, View):
         con = get_redis_connection("default")
         history_key = 'history_%d' % user.id
         # 获取用户浏览的最近五个商品
-        # do: 显示所有的浏览记录
-        sku_ids = con.lrange(history_key, 0, 4)
+        sku_ids = con.zrevrange(history_key, 0, 4)
         # 按顺序查询
         goods_li = list()
         for sku_id in sku_ids:
@@ -268,9 +267,8 @@ class UserSiteView(LoginRequiredMixin, View):
         显示页面
         """
         # todo 确认此处是否存在着多次查询的问题，考虑优化，理解原理
-        # default_address = Address.objects.get_default_address(request.user)
+        default_address = Address.objects.get_default_address(request.user)
         all_address = Address.objects.filter(user=request.user)
-        default_address = all_address.get_default_address(request.user)
         return render(request, "user_center_site.html",
                       {'page': 'site',
                        'default_address': default_address,

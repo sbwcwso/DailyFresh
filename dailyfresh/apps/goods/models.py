@@ -11,7 +11,7 @@ class GoodsType(BaseModel):
     """
     name = models.CharField(max_length=20, verbose_name='种类名称')
     logo = models.CharField(max_length=20, verbose_name='标识')
-    image = models.ImageField(upload_to='type', verbose_name='商品类型图片')
+    image = models.ImageField(verbose_name='商品类型图片')
 
     class Meta:
         db_table = 'df_goods_type'
@@ -36,7 +36,7 @@ class GoodsSKU(BaseModel):
     desc = models.CharField(max_length=256, verbose_name='商品简介')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='商品价格')
     unite = models.CharField(max_length=20, verbose_name='商品单位')
-    image = models.ImageField(upload_to='goods', verbose_name='商品图片')
+    image = models.ImageField(verbose_name='商品图片')
     stock = models.IntegerField(default=1, verbose_name='商品库存')
     sales = models.IntegerField(default=0, verbose_name='商品销量')
     status = models.SmallIntegerField(default=1, choices=status_choices, verbose_name='商品状态')
@@ -61,7 +61,11 @@ class Goods(BaseModel):
         db_table = 'df_goods'
         verbose_name_plural = verbose_name = '商品SPU'
 
+    def __str__(self):
+        return self.name
 
+
+# todo 似乎没有实质性的用处，可以考虑删除
 class GoodsImage(BaseModel):
     """
     商品图片模型类
@@ -120,3 +124,6 @@ class IndexPromotionBanner(BaseModel):
     class Meta:
         db_table = 'df_index_promotion'
         verbose_name_plural = verbose_name = "主页促销活动"
+
+    def __str__(self):
+        return "主页促销商品_{}".format(self.index)

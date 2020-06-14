@@ -4,7 +4,7 @@
 
 {% block main_content %}
 	<div class="breadcrumb">
-		<a href="#">全部分类</a>
+		<a href="{% url 'goods:list' 0 1 %}">全部分类</a>
 		<span>></span>
 		<a href="{% url 'goods:list' sku.type.id 1%}">{{ sku.type.name }}</a>
 		<span>></span>
@@ -28,15 +28,15 @@
 					<a href="javascript:" class="add fr">+</a>
 					<a href="javascript:" class="minus fr">-</a>
 				</div>
-                {% if same_spus|length > 0 %}
-                    <div style="font:normal 14px/52px 'Microsoft Yahei'; text-align: center;" >
-                    <span>其它规格商品:&nbsp;&nbsp;&nbsp;</spanst>
+			</div>
+            {% if same_spus|length > 0 %}
+                <div style="font:normal 14px/52px 'Microsoft Yahei';" >
+                    <span>其它规格商品:&nbsp;&nbsp;&nbsp;</span>
                     {% for same_spu in same_spus %}
                         <a href="{% url 'goods:detail' same_spu.id %}">{{ same_spu.name }}</a>
                     {% endfor %}
-                    </div>
-                {% endif %}
-			</div>
+                </div>
+            {% endif %}
 			<div class="total">总价：<em>{{ sku.price }}</em></div>
 			<div class="operate_btn">
                 {# <a href="javascript:;" class="buy_btn">立即购买</a>#}
@@ -77,9 +77,9 @@
 
             <div class="tab_content" id="tab_comment" style="display: none;">
                 <dl>
-                    {% for comment in sku_comments %}
-                        <dt>评论时间：{{ comment.update_time }} &nbsp;&nbsp;用户:{{ comment.order.user.username }}</dt>
-                        <dd>{{ comment.comment }}</dd>
+                    {% for sku_order in sku_orders %}
+                        <dt>评论时间：{{ sku_order.update_time }} &nbsp;&nbsp;用户:{{ sku_order.order.user.username }}</dt>
+                        <dd>{{ sku_order.comment }}</dd>
                         {% empty %}
                             <span style="text-align:center;display: block;margin: 20px auto;">暂无评论</span>
                     {% endfor %}
@@ -100,7 +100,6 @@
         function update_total_price(){
             let price = $('.show_pirze').children('em').text();
             let count = $('.num_show').val();
-
             let total_price = parseFloat(price) * parseInt(count);
 
             $(".total").children('em').text("￥" + total_price.toFixed(2))
@@ -110,36 +109,44 @@
         $('#add_cart').click(function () {
             {#发动 ajax 请求,添加购物车#}
             {#获取商品的 sku_id 和 添加数目 以及 csrf_token#}
-            let sku_id = $(this).attr("sku_id");
-            let count = $('.num_show').val();
-            let csrf_token = $("input[name='csrfmiddlewaretoken']").val();
-            let post_data = {sku_id: sku_id, count: count, csrfmiddlewaretoken: csrf_token};
+            let post_data = {
+                sku_id: $(this).attr("sku_id"),
+                count: $('.num_show').val(),
+                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+            };
             $.post("{% url 'cart:add_cart' %}", post_data, function(data){
-                    if(data.res != 4){
-                        alert(data.error_msg)
-                    }
-                    else{
-                        let $add_x = $('#add_cart').offset().top;
-                        let $add_y = $('#add_cart').offset().left;
+                 /** @namespace data.res **/
+                 /** @namespace data.error_msg **/
+                 /** @namespace data.goods_num **/
+                if(data.res){
+                    // 添加购物车错误， 显示错误信息
+                    alert(data.error_msg)
+                }
+                else{
+                    // 添加购物车成功，显示相应的动画界面
 
-                        let $to_x = $('#show_count').offset().top;
-                        let $to_y = $('#show_count').offset().left;
-                        {#购物车添加动画#}
-                        $(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'});
-                        $(".add_jump").stop().animate({
-                                    'left': $to_y+7,
-                                    'top': $to_x+7},
-                                "fast", function() {
-                                    $(".add_jump").fadeOut('fast',function(){
-                                        {#更新购物车的数目#}
-                                        $('#show_count').html(data.goods_num);
-                                    });
-
+                    //　获取　add_cart 元素左上角的坐标
+                    let $add_x = $('#add_cart').offset().top;
+                    let $add_y = $('#add_cart').offset().left;
+                    //　获取　show_count 元素左上角的坐标
+                    let $to_x = $('#show_count').offset().top;
+                    let $to_y = $('#show_count').offset().left;
+                    {#购物车添加动画#}
+                    $(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'});
+                    $(".add_jump").stop().animate({
+                                'left': $to_y+7,
+                                'top': $to_x+7},
+                                'fast',
+                                function() {
+                                $(".add_jump").fadeOut('fast',function(){
+                                    {#更新购物车的数目#}
+                                    $('#show_count').html(data.goods_num);
                                 });
-                    }
+                            });
+                }
             });
         });
-
+        {# todo 可以考虑添加商品库存的限制　#}
         $(".add").click(function(){
             let count = $('.num_show').val();
             count = parseInt(count) + 1;
@@ -155,12 +162,26 @@
             update_total_price();
         });
 
-        $(".num_show").blur(function () {
-            let count = $(this).val();
+        function get_num_show(obj){
+        {# 获取输入框中的数字　#}
+            let count = parseInt($(obj).val())
             {#  检验输入是否可法  #}
-            if( isNaN(count) || count.trim().length == 0 || parseInt(count)<=0) count = 1;
-            $(this).val(parseInt(count));
+            if( isNaN(count) || count<=0) count = 1;
+            $(obj).val(count);
             update_total_price();
+        }
+
+        {# 失去焦点时更新　#}
+        $(".num_show").blur(function () {
+            get_num_show(this);
+        });
+
+        {# 按回车键时更新　#}
+        $(".num_show").keypress(function (event) {
+            if(event.keyCode == "13")
+            {
+                get_num_show(this);
+            }
         });
 
         $("#tag_comment").click(function(){

@@ -5,9 +5,11 @@
 {% block main_content %}
     {% csrf_token %}
 	<div class="breadcrumb">
-		<a href="#">全部分类</a>
-		<span>></span>
-		<a href="{% url 'goods:list' type.id 1 %}">{{ type.name }}</a>
+		<a href="{% url 'goods:list' 0 1 %}">全部分类</a>
+        {% if type.id != 0%}
+            <span>></span>
+            <a href="{% url 'goods:list' type.id 1 %}">{{ type.name }}</a>
+        {% endif %}
 	</div>
 
 	<div class="main_wrap clearfix">
@@ -49,14 +51,18 @@
 
 			<div class="pagenation">
                 {% if current_page.has_previous %}
-                    <a href="{% url 'goods:list' type.id current_page.previous_page_number %}?sort={{ sort }}"><上一页</a>
+                    <a href="{% url 'goods:list' type.id current_page.previous_page_number %}?sort={{ sort }}">
+                        &lt;上一页
+                    </a>
                 {% endif %}
                 {% for page_num in page_range %}
 				<a href="{% url 'goods:list' type.id page_num %}?sort={{ sort }}"
                    {% if page_num == current_page.number %}class="active"{% endif %}>{{ page_num }}</a>
                 {% endfor %}
                 {% if current_page.has_next %}
-                    <a href="{% url 'goods:list' type.id current_page.next_page_number %}?sort={{ sort }}">下一页></a>
+                    <a href="{% url 'goods:list' type.id current_page.next_page_number %}?sort={{ sort }}">
+                        下一页&gt;
+                    </a>
                 {% endif %}
 			</div>
 		</div>

@@ -1,10 +1,4 @@
-
-
-LOCK TABLES `df_address` WRITE;
-/*!40000 ALTER TABLE `df_address` DISABLE KEYS */;
-INSERT INTO `df_address` VALUES (1,'2019-03-07 15:02:29.815890','2019-03-07 15:02:29.815933',0,'李俊杰','上海市嘉定区同济大学','000000','18916379836',1,1);
-/*!40000 ALTER TABLE `df_address` ENABLE KEYS */;
-UNLOCK TABLES;
+set foreign_key_checks=0;
 
 --
 -- Dumping data for table `df_goods`
@@ -110,7 +104,4 @@ UNLOCK TABLES;
 
 --
 
-
-
-
-
+set foreign_key_checks=1;

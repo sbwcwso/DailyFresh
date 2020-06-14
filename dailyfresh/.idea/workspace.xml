@@ -20,8 +20,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41bc7585-b4f9-4c0f-9cdf-41b84f7a2126" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dailyfresh.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dailyfresh.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/lijunjie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/lijunjie.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/cart/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/cart/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/cart/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/cart/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/cart/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/goods/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/goods/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/goods/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/goods/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/goods/search_indexes.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/search_indexes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/goods/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/order/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/order/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/order/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/order/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/migrations/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/celery_task/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/celery_task/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailyfresh.sql" beforeDir="false" afterPath="$PROJECT_DIR$/dailyfresh.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailyfresh/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dailyfresh/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailyfresh/tmp.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dailyfresh/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dailyfresh/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base_detal_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_detal_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/fdfs/client.conf" beforeDir="false" afterPath="$PROJECT_DIR$/utils/fdfs/client.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/fdfs/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/fdfs/storage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/whoosh_index/_MAIN_0.toc" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +78,17 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
   <component name="ProjectId" id="1ceKLj7P09QyYBnHgnoSTLZ7oxJ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -55,16 +99,23 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/js/jquery-1.12.4.min.js" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.jscs" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.jscs" value="" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -170,20 +221,20 @@
       <workItem from="1557804555444" duration="4982000" />
       <workItem from="1559871432361" duration="30000" />
       <workItem from="1590883566403" duration="59671000" />
+      <workItem from="1591430810423" duration="16354000" />
+      <workItem from="1591571704304" duration="30056000" />
+      <workItem from="1591793251219" duration="19975000" />
+      <workItem from="1592011520878" duration="9201000" />
+      <workItem from="1592029891251" duration="17698000" />
+      <workItem from="1592052951680" duration="11731000" />
     </task>
     <servers />
   </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -195,15 +246,37 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="622" y="232" width="1050" height="640" key="#Inspections" timestamp="1592095536144">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="622" y="232" width="1050" height="640" key="#Inspections/67.27.1853.1053@67.27.1853.1053" timestamp="1592095536144" />
+    <state x="267" y="403" width="1442" height="298" key="#SQL_Dialects" timestamp="1591596032954">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="267" y="403" width="1442" height="298" key="#SQL_Dialects/67.27.1853.1053@67.27.1853.1053" timestamp="1591596032954" />
     <state x="894" y="402" width="857" height="301" key="#Vim_Emulation" timestamp="1590922178417">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="894" y="402" width="857" height="301" key="#Vim_Emulation/67.27.1853.1053@67.27.1853.1053" timestamp="1590922178417" />
-    <state x="475" y="187" key="SettingsEditor" timestamp="1590921867070">
+    <state x="568" y="375" width="524" height="434" key="#com.intellij.ide.scriptingContext.ui.PerFileMappingsDialogWrapper" timestamp="1592030805422">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="475" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1590921867070" />
+    <state x="568" y="375" width="524" height="434" key="#com.intellij.ide.scriptingContext.ui.PerFileMappingsDialogWrapper/67.27.1853.1053@67.27.1853.1053" timestamp="1592030805422" />
+    <state x="523" y="115" width="374" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1591433693964">
+      <screen x="67" y="27" width="1297" height="741" />
+    </state>
+    <state x="523" y="115" width="374" height="562" key="#com.intellij.ide.util.MemberChooser/67.27.1297.741@67.27.1297.741" timestamp="1591433693964" />
+    <state x="771" y="309" width="424" height="484" key="FileChooserDialogImpl" timestamp="1592030734161">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="771" y="309" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1592030734161" />
+    <state x="317" y="227" key="SettingsEditor" timestamp="1592053747508">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="327" y="38" key="SettingsEditor/67.27.1297.741@67.27.1297.741" timestamp="1591436681526" />
+    <state x="317" y="227" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1592053747508" />
   </component>
 </project>

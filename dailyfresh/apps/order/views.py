@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.views import View
+from django.views.generic import View
 from goods.models import GoodsSKU
 from django_redis import get_redis_connection
+from django.urls import reverse
 from utils.mixin import LoginRequiredMixin
 from user.models import Address
 from order.models import OrderInfo, OrderGoods

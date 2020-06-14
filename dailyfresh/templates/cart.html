@@ -31,7 +31,8 @@
             <li class="col06">
                 <div class="num_add">
                     <a href="javascript:;" class="add fl">+</a>
-                    <input type="text" class="num_show fl" value="{{ sku.count }} " sku_id="{{ sku.id }}">
+                    <input type="text" class="num_show fl" value="{{ sku.count }} " sku_id="{{ sku.id }}">  {# 应对在输入框按回车自动提交表单的问题  #}
+{#                    onkeydown='if(event.keyCode===13) {input_num($(this));return false;}'>  {# 应对在输入框按回车自动提交表单的问题  #}
                     <a href="javascript:;" class="minus fl">-</a>
                 </div>
             </li>
@@ -42,7 +43,9 @@
         <ul class="settlements">
             <li class="col01"><input type="checkbox" name="" checked=""></li>
             <li class="col02">全选</li>
-            <li class="col03">合计(不含运费)：<span>¥</span><em>{{ goods_amount_price|floatformat:2}}</em><br>共计<b>{{ goods_amount }}</b>件商品</li>
+            <li class="col03">合计(不含运费)：
+                <span>¥</span><em>{{ goods_amount_price|floatformat:2}}</em><br>共计<b>{{ goods_amount }}</b>件商品
+            </li>
             <li class="col04"><input type="submit" value="去结算"></li>
         </ul>
     </form>
@@ -51,103 +54,116 @@
 {% block bottomfiles %}
     <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
     <script>
+        let settlements = $(".settlements")
+        let cart_list_td = $(".cart_list_td")
+        let total_count = $(".total_count").children("em")
+        let csrf_token = $("input[name='csrfmiddlewaretoken']").val()
 
-        update_info();
-        check_checkboxs();
-
-        // 检查全选复选框是否需要选中
-        function check_checkboxs() {
-            let all_nums = $(".cart_list_td").length;
-            let checked_nums = $(".cart_list_td").find(":checked").length;
+        function check_checkboxes() {
+            // 检查全选复选框是否需要选中
+            let all_nums = cart_list_td.length;
+            let checked_nums = cart_list_td.find(":checked").length;
             let is_checked = false;
-            if(all_nums == checked_nums){
-                is_checked = true;
-            }
-            $(".settlements").find(":checkbox").prop("checked", is_checked);
+            if(all_nums === checked_nums) is_checked = true;
+            settlements.find(":checkbox").prop("checked", is_checked);
             update_info();
         }
 
-        // 更新商品总价格,总价数
         function update_info(){
+            // 更新商品总价格,总价数
             let total_price = 0;
             let total_num = 0;
-            $(".cart_list_td").find(":checked").parents("ul").each(function(){
-                let price = $(this).children(".col07").text();
-                let num = $(this).find(".num_show").val();
-                total_price += parseFloat(price);
-                total_num += parseInt(num)
+            cart_list_td.find(":checked").parents("ul").each(function(){
+                total_price += parseFloat($(this).children(".col07").text());
+                total_num += parseInt($(this).find(".num_show").val())
             });
-            $(".settlements").find("em").text(total_price.toFixed(2));
-            $(".settlements").find("b").text(total_num);
+            settlements.find("em").text(total_price.toFixed(2));
+            settlements.find("b").text(total_num);
         }
 
-        // 更新购物车数目
-        let update_status = true;
-        function update_cart_num(num_show_object, sku_id, count){
+        function input_num(good_input_object){
+            // 直接从输入框中更新商品的数目
+            let count = parseInt(good_input_object.val());
+            let sku_id = good_input_object.attr("sku_id");
+            if(isNaN(count) || count<=0){
+                good_input_object.val(prev_count);
+                return
+            }
+            if(count !== prev_count)
+                update_cart_num(good_input_object, sku_id, count, true);
+        }
+
+        function update_cart_num(good_input_object, sku_id, count, direct_input=false){
+            // 更新指定商品的购物车数目
             let paras = {
                 sku_id: sku_id,
                 count: count,
-                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+                csrfmiddlewaretoken: csrf_token,
             };
-            $.ajaxSettings.async = false;
             $.post("{% url 'cart:update_cart' %}", paras, function(data){
-                if(data.res == 4){
+                if(!data.res){
                     // 更新成功
                     // 更新全部商品的数目
-                    $(".total_count").children("em").text(data.amounts);
+                    total_count.text(data.goods_num);
                     // 更新当前商品的数目和小计
-                    num_show_object.val(parseInt(count));
-                    let price = num_show_object.parents("li").siblings(".col05").text();
+                    good_input_object.val(parseInt(count));
+                    let price = good_input_object.parents("li").siblings(".col05").text();
                     let total_price = parseFloat(price) * parseInt(count);
-                    num_show_object.parents("li").siblings(".col07").text(total_price.toFixed(2) + "元");
+                    good_input_object.parents("li").siblings(".col07").text(total_price.toFixed(2) + "元");
 
                     // 判断是否需要更新总价格
-                    let is_checked = num_show_object.parents("ul").find(":checkbox").prop("checked");
-                    if (is_checked) update_info();
+                    let is_checked = good_input_object.parents("ul").find(":checkbox").prop("checked");
+                    if (is_checked){
+                        update_info();
+                    }
+
+                    // 更新 prev_count
+                    prev_count = good_input_object.val();
                 }
                 else{
-                    update_status = false;
                     alert(data.error_msg);
+                    // 如果是直接输入商品数目，则更新失败后将其值设为之前的值
+                    if (direct_input){
+                        good_input_object.val(prev_count)
+                    }
                 }
             });
-            $.ajaxSettings.async = true;
         }
 
-        // 商品的全选和全不选
-        $(".settlements").find(":checkbox").change(function () {
+        // 商品的全选框改变状态时执行相应的操作
+        settlements.find(":checkbox").change(function () {
             let is_checked = $(this).prop("checked");
-            $(".cart_list_td").find(":checkbox").each(function () {
+            cart_list_td.find(":checkbox").each(function () {
                 $(this).prop("checked", is_checked);
                 update_info();
             })
         });
 
-        // 商品复选框选中与不选的行为
-        $(".cart_list_td").find(":checkbox").change(function () {
-            check_checkboxs();
+        // 商品对应的 checkbox 状态发生改变时，需要修改全选框的状态
+        cart_list_td.find(":checkbox").change(function () {
+            check_checkboxes();
         });
 
         // 点击增加商品
         $(".add").click(function () {
-            let num_show_object = $(this).next();
-            let count = num_show_object.val();
-            let sku_id = num_show_object.attr("sku_id");
+            let good_input_object = $(this).next();
+            let count = good_input_object.val();
+            let sku_id = good_input_object.attr("sku_id");
 
             count = parseInt(count) + 1;
-            update_cart_num(num_show_object, sku_id, count);
-            update_status = true
+            update_cart_num(good_input_object, sku_id, count);
         });
 
         // 点击减少商品
         $(".minus").click(function () {
-            let num_show_object = $(this).prev();
-            let count = num_show_object.val();
-            let sku_id = num_show_object.attr("sku_id");
+            let good_input_object = $(this).prev();
+            let count = parseInt(good_input_object.val()) - 1;
+            let sku_id = good_input_object.attr("sku_id");
 
-            count = parseInt(count) - 1;
-            if(count <= 0) count = 1;
-            update_cart_num(num_show_object, sku_id, count);
-            update_status = true
+            if(count <= 0)
+                count = 1;
+            else
+                update_cart_num(good_input_object, sku_id, count);
         });
 
         // 保存修改前商品的数目
@@ -156,25 +172,19 @@
             prev_count = $(this).val();
         });
 
-
         // 直接输入商品的数目
+
+        // 失去集点后后触发
         $(".num_show").blur(function () {
-            let num_show_object = $(this)
-            let count = num_show_object.val();
-            let sku_id = num_show_object.attr("sku_id");
+            input_num($(this))
+        });
 
-            if(isNaN(count) || count.trim().length <=0 || parseInt(count)<=0){
-                num_show_object.val(prev_count);
-                return
+        // 按下回车键触发
+       $(".num_show").keydown(function(event){
+            if( event.keyCode === 13 ){
+                input_num($(this))
+                return false;
             }
-
-            if(count != prev_count) update_cart_num(num_show_object, sku_id, parseInt(count));
-
-            // 更新失败,则将输入值置为原始值
-            if(update_status === false) num_show_object.val(prev_count);
-
-            update_status = true
-
         });
 
         // 删除购物车中的商品
@@ -183,23 +193,24 @@
             let sku_id = sku_ul.find(".num_show").attr("sku_id");
             let paras = {
                 sku_id: sku_id,
-                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+                csrfmiddlewaretoken: csrf_token,
             };
             $.post("{% url 'cart:delete_cart' %}", paras, function(data){
-                if(data.res == 2){
+                if(!data.res){
                     // 删除成功
                     sku_ul.remove();
+                    // 更新商品列表对应的元素
+                    cart_list_td = $(".cart_list_td")
                     // 更新全部商品的数目
-                    $(".total_count").children("em").text(data.amount);
+                    total_count.text(data.goods_num);
                     // 判断是否需要更新商品总价
-                    if(sku_ul.find(":checkbox").prop("checked")){
+                    if (sku_ul.find(":checkbox").prop("checked")){
                         update_info();
                     }
                     else{
-                        check_checkboxs();
+                        // 检查全选状态
+                        check_checkboxes();
                     }
-                    // 检查全选状态
-
                 }
                 else{
                     alert(data.error_msg)

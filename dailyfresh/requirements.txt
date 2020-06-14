@@ -11,7 +11,7 @@ django-celery==3.1.17
 django-haystack==2.8.1
 django-redis==4.10.0
 django-redis-sessions==0.5.6
-django-tinymce==2.6.0
+django-tinymce==3.0.2
 fdfs-client-py==1.2.6
 idna==2.8
 ipython==7.3.0

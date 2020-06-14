@@ -12,13 +12,10 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.template import loader
 
-from goods.models import (
-    GoodsType, IndexGoodsBanner,
-    IndexTypeGoodsBanner, IndexPromotionBanner
-)
+from goods.views import IndexView
 
 # 创建一个 Celery 类的实例对象
-app = Celery('celery_tasks.task', broker="redis://192.168.10.108:6379/8")
+app = Celery('celery_tasks.task', broker=settings.CACHES['default']['LOCATION'])
 
 
 @app.task
@@ -38,29 +35,16 @@ def send_register_active_email(to_email, username, token):
 
 @app.task
 def generate_static_index_html():
-    """产生首页静态页面"""
+    """
+    产生首页静态页面
+    """
     # 从 mysql 中查询商品的相关信息
-    goods_types = GoodsType.objects.all()
-    banners = IndexGoodsBanner.objects.all().order_by("index")
-    for goods_type in goods_types:
-        goods_type.titles = IndexTypeGoodsBanner.objects.filter(type=goods_type, display_type=0).order_by("index")
-        goods_type.images = IndexTypeGoodsBanner.objects.filter(type=goods_type, display_type=1).order_by("index")
-    promotion_banner = IndexPromotionBanner.objects.all().order_by("index")
-
-    content_text = {
-        "types": goods_types,
-        "banners": banners,
-        "promotion_banners": promotion_banner,
-        "cart_num": 0,
-    }
-
+    content_text = IndexView.get_content_text()
     # 加载模型文件
     temp = loader.get_template("static_index.html")
     # 模板渲染
     static_index_html = temp.render(content_text)
-
     # 生成首页对应的静态页面
     save_path = os.path.join(settings.BASE_DIR, 'static/index.html')
     with open(save_path, 'w') as f:
         f.write(static_index_html)
-
