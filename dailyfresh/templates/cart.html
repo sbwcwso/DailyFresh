@@ -31,8 +31,7 @@
             <li class="col06">
                 <div class="num_add">
                     <a href="javascript:;" class="add fl">+</a>
-                    <input type="text" class="num_show fl" value="{{ sku.count }} " sku_id="{{ sku.id }}">  {# 应对在输入框按回车自动提交表单的问题  #}
-{#                    onkeydown='if(event.keyCode===13) {input_num($(this));return false;}'>  {# 应对在输入框按回车自动提交表单的问题  #}
+                    <input type="text" class="num_show fl" value="{{ sku.count }}" sku_id="{{ sku.id }}">
                     <a href="javascript:;" class="minus fl">-</a>
                 </div>
             </li>
@@ -84,19 +83,18 @@
         function input_num(good_input_object){
             // 直接从输入框中更新商品的数目
             let count = parseInt(good_input_object.val());
-            let sku_id = good_input_object.attr("sku_id");
             if(isNaN(count) || count<=0){
                 good_input_object.val(prev_count);
                 return
             }
             if(count !== prev_count)
-                update_cart_num(good_input_object, sku_id, count, true);
+                update_cart_num(good_input_object, count, true);
         }
 
-        function update_cart_num(good_input_object, sku_id, count, direct_input=false){
+        function update_cart_num(good_input_object, count, direct_input=false){
             // 更新指定商品的购物车数目
             let paras = {
-                sku_id: sku_id,
+                sku_id: good_input_object.attr("sku_id"),
                 count: count,
                 csrfmiddlewaretoken: csrf_token,
             };
@@ -148,22 +146,20 @@
         $(".add").click(function () {
             let good_input_object = $(this).next();
             let count = good_input_object.val();
-            let sku_id = good_input_object.attr("sku_id");
 
             count = parseInt(count) + 1;
-            update_cart_num(good_input_object, sku_id, count);
+            update_cart_num(good_input_object, count);
         });
 
         // 点击减少商品
         $(".minus").click(function () {
             let good_input_object = $(this).prev();
             let count = parseInt(good_input_object.val()) - 1;
-            let sku_id = good_input_object.attr("sku_id");
 
             if(count <= 0)
                 count = 1;
             else
-                update_cart_num(good_input_object, sku_id, count);
+                update_cart_num(good_input_object, count);
         });
 
         // 保存修改前商品的数目
@@ -173,14 +169,13 @@
         });
 
         // 直接输入商品的数目
-
-        // 失去集点后后触发
         $(".num_show").blur(function () {
+            // 输入框失去集点后后触发
             input_num($(this))
         });
 
-        // 按下回车键触发
        $(".num_show").keydown(function(event){
+           // 输入框中按下回车键触发
             if( event.keyCode === 13 ){
                 input_num($(this))
                 return false;
