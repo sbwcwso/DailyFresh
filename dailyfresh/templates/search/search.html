@@ -37,7 +37,7 @@
 				</li>
                 {% endfor %}
 			</ul>
-            {# todo: 看看 haystack 能不能修改传入模板的相关变量 #}
+            {# todo: 看看 haystack 能不能修改传入模板的相关变量, 从而实现统一的分页逻辑#}
 			<div class="pagenation">
                 {% if page.has_previous %}
                     <a href="/search/?q={{ query }}&page={{ page.previous_page_number }}"><上一页</a>

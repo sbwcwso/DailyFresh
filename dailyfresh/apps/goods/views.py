@@ -3,10 +3,9 @@ import time
 from django_redis import get_redis_connection
 
 from django.core.cache import cache
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.views.generic import View
+from django.views.generic import View, ListView
 from django.urls import reverse
 
 from goods.models import (
@@ -14,6 +13,7 @@ from goods.models import (
     IndexPromotionBanner, GoodsSKU,
 )
 from order.models import OrderGoods
+from utils.mixin import ListViewMixin
 
 
 # Create your views here.
@@ -143,8 +143,10 @@ class DetailView(View):
 
 
 # /list/种类id/页码?sort=排序方式
-class ListView(View):
+class GoodsListView(ListViewMixin, ListView):
     """列表页"""
+    paginate_by = 3  # 每页显示的页数
+    template_name = 'list.html'
 
     def get(self, request, type_id, page):
         """返回列表页面"""
@@ -188,38 +190,15 @@ class ListView(View):
             cart_key = "cart_%d" % user.id
             cart_num = conn.hlen(cart_key)
 
-        # 分页相关
-        paginator = Paginator(skus, 5)  # Show 5 contacts per page
-        try:
-            current_page = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
-            current_page = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            current_page = paginator.page(paginator.num_pages)
+        self.object_list = skus
 
-        # 控制商品显示的页码数量,最多只显示 5 页
-        page = current_page.number
-        total_page = paginator.num_pages
-        if total_page < 5:
-            page_range = range(1, total_page + 1)
-        elif page < 3:
-            page_range = range(1, 6)
-        elif page > total_page - 2:
-            page_range = range(total_page - 4, total_page + 1)
-        else:
-            page_range = range(page - 2, page + 3)
-
-        # 组织模板上下文
-        content_text = {
+        context = {
             "type": goods_type,
             "types": types,
             "new_skus": new_skus,
             "cart_num": cart_num,
-            "current_page": current_page,
             "sort": sort,
-            "page_range": page_range,
         }
+        context = self.get_context_data(**context)
+        return self.render_to_response(context)
 
-        return render(request, "list.html", content_text)

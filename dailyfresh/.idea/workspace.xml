@@ -20,8 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41bc7585-b4f9-4c0f-9cdf-41b84f7a2126" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/lijunjie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/lijunjie.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/goods/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/goods/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/order/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/order/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/place_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/place_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/search/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/mixin.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/mixin.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +201,8 @@
       <workItem from="1592011520878" duration="9201000" />
       <workItem from="1592029891251" duration="17698000" />
       <workItem from="1592052951680" duration="26356000" />
-      <workItem from="1592351790806" duration="8773000" />
+      <workItem from="1592351790806" duration="16525000" />
+      <workItem from="1592607805894" duration="11758000" />
     </task>
     <servers />
   </component>
@@ -217,10 +225,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="622" y="232" width="1050" height="640" key="#Inspections" timestamp="1592095536144">
+    <state x="622" y="232" width="1050" height="640" key="#Inspections" timestamp="1592612844789">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="622" y="232" width="1050" height="640" key="#Inspections/67.27.1853.1053@67.27.1853.1053" timestamp="1592095536144" />
+    <state x="622" y="232" width="1050" height="640" key="#Inspections/67.27.1853.1053@67.27.1853.1053" timestamp="1592612844789" />
     <state x="267" y="403" width="1442" height="298" key="#SQL_Dialects" timestamp="1591596032954">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -246,5 +254,13 @@
     </state>
     <state x="327" y="38" key="SettingsEditor/67.27.1297.741@67.27.1297.741" timestamp="1591436681526" />
     <state x="317" y="227" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1592053747508" />
+    <state x="722" y="286" width="540" height="524" key="StructurePopup" timestamp="1592609263130">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="722" y="286" width="540" height="524" key="StructurePopup/67.27.1853.1053@67.27.1853.1053" timestamp="1592609263130" />
+    <state x="771" y="171" width="434" height="763" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1592614561735">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="771" y="171" width="434" height="763" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1592614561735" />
   </component>
 </project>

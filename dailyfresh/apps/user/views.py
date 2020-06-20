@@ -5,18 +5,17 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, Signatur
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import View
+from django.views.generic import View, ListView
 
 
 from celery_task.tasks import send_register_active_email
 from goods.models import GoodsSKU
 from order.models import OrderGoods, OrderInfo
 from user.models import User, Address
-from utils.mixin import LoginRequiredMixin
+from utils.mixin import LoginRequiredMixin, ListViewMixin
 
 # 加密用户的身份信息,生成激活 token, 设置过期时间为 3600 秒
 SERIALIZER = Serializer(settings.SECRET_KEY, 3600)
@@ -92,7 +91,7 @@ class RegisterView(View):
         # 发送邮件
         send_register_active_email.delay(email, user_name, token)
 
-        # todo: 添加几秒钟后自动跳转到首页的功能
+        # todo: 添加几秒钟后自动跳转到首页的功能， 可以借助订单支付页面的 js 代码来实现
         return HttpResponse(
             "<h2>激活邮件已发送至邮箱{},请前往邮箱激活.</h2><br><a href={}>返回首页<a>".format(
                 email, reverse('goods:index')
@@ -212,11 +211,14 @@ class UserInfoView(LoginRequiredMixin, View):
 
 
 # /user/order/page_num
-class UserOrderView(LoginRequiredMixin, View):
+class UserOrderView(LoginRequiredMixin, ListViewMixin, ListView):
     """
     显示用户中心-订单页面
     """
-    def get(self, request, page):
+    paginate_by = 2
+    template_name = 'user_center_order.html'
+
+    def get(self, request, *args, **kwargs):
         # 查询相关数据
         orders = OrderInfo.objects.filter(user=request.user).order_by("-create_time")
         all_orders = list()
@@ -228,33 +230,10 @@ class UserOrderView(LoginRequiredMixin, View):
             order.total_price += order.transit_price
             order.status_name = OrderInfo.ORDER_STATUS[order.order_status]
             all_orders.append(order)
+        self.object_list = all_orders
 
-        # 分页相关
-        paginator = Paginator(all_orders, 2)  # Show 2 contacts per page
-        try:
-            current_page = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
-            current_page = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            current_page = paginator.page(paginator.num_pages)
-
-        # 控制商品显示的页码数量,最多只显示 5 页
-        page = current_page.number
-        total_page = paginator.num_pages
-        if total_page < 5:
-            page_range = range(1, total_page + 1)
-        elif page < 3:
-            page_range = range(1, 6)
-        elif page > total_page - 2:
-            page_range = range(total_page - 4, total_page + 1)
-        else:
-            page_range = range(page - 2, page + 3)
-        return render(request, "user_center_order.html", {'page': 'order',
-                                                          'current_page': current_page,
-                                                          'page_range': page_range,
-                                                          })
+        context = self.get_context_data(page='order')
+        return self.render_to_response(context)
 
 
 # /user/site

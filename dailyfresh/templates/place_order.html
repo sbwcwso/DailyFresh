@@ -101,6 +101,7 @@
 
                         setTimeout(function(){
                             $('.popup_con').fadeOut('fast',function(){
+                                {# todo 可以修改为跳转到订单支付页面 #}
                                 window.location.href = '{% url "user:order" 1%}';
                             });
                         },3000)
