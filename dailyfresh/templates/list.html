@@ -36,7 +36,7 @@
 			</div>
 
 			<ul class="goods_type_list clearfix">
-                {% for sku in current_page.object_list %}
+                {% for sku in page_obj.object_list %}
 				<li>
 					<a href="{% url 'goods:detail' sku.id %}"><img src="{{ sku.image.url }}"></a>
 					<h4><a href="{% url 'goods:detail' sku.id %}">{{ sku.name }}</a></h4>
@@ -50,17 +50,17 @@
 			</ul>
 
 			<div class="pagenation">
-                {% if current_page.has_previous %}
-                    <a href="{% url 'goods:list' type.id current_page.previous_page_number %}?sort={{ sort }}">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'goods:list' type.id page_obj.previous_page_number %}?sort={{ sort }}">
                         &lt;上一页
                     </a>
                 {% endif %}
                 {% for page_num in page_range %}
 				<a href="{% url 'goods:list' type.id page_num %}?sort={{ sort }}"
-                   {% if page_num == current_page.number %}class="active"{% endif %}>{{ page_num }}</a>
+                   {% if page_num == page_obj.number %}class="active"{% endif %}>{{ page_num }}</a>
                 {% endfor %}
-                {% if current_page.has_next %}
-                    <a href="{% url 'goods:list' type.id current_page.next_page_number %}?sort={{ sort }}">
+                {% if page_obj.has_next %}
+                    <a href="{% url 'goods:list' type.id page_obj.next_page_number %}?sort={{ sort }}">
                         下一页&gt;
                     </a>
                 {% endif %}
