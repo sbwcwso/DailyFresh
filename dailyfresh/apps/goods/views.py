@@ -1,6 +1,7 @@
 import time
 
 from django_redis import get_redis_connection
+from haystack.views import SearchView
 
 from django.core.cache import cache
 from django.http import JsonResponse
@@ -13,7 +14,7 @@ from goods.models import (
     IndexPromotionBanner, GoodsSKU,
 )
 from order.models import OrderGoods
-from utils.mixin import ListViewMixin
+from utils.mixin import ListViewMixin, SearchViewMixin
 
 
 # Create your views here.
@@ -73,8 +74,10 @@ class IndexView(View):
 
         context: dict
         """
+        # 获取所有的商品类型
         types = GoodsType.objects.all()
         banners = IndexGoodsBanner.objects.all().order_by("index")
+        # 根据获取的商品类型查询首页要展示的商品
         for goods_type in types:
             # 获取文字信息
             goods_type.titles = IndexTypeGoodsBanner.objects.filter(type=goods_type,
@@ -202,3 +205,8 @@ class GoodsListView(ListViewMixin, ListView):
         context = self.get_context_data(**context)
         return self.render_to_response(context)
 
+
+class NewSearchView(SearchViewMixin, SearchView):
+    """
+    自定义的 haystack 商品搜索类
+    """

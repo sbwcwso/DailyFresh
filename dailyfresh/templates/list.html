@@ -56,7 +56,7 @@
                     </a>
                 {% endif %}
                 {% for page_num in page_range %}
-				<a href="{% url 'goods:list' type.id page_num %}?sort={{ sort }}"
+				    <a href="{% url 'goods:list' type.id page_num %}?sort={{ sort }}"
                    {% if page_num == page_obj.number %}class="active"{% endif %}>{{ page_num }}</a>
                 {% endfor %}
                 {% if page_obj.has_next %}

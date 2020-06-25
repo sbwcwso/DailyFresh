@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.core.cache import cache
 
-from celery_task.tasks import generate_static_index_html
 from goods.models import (
     GoodsType, GoodsSKU, GoodsImage, IndexPromotionBanner,
     IndexGoodsBanner, Goods, IndexTypeGoodsBanner,
@@ -19,6 +18,7 @@ class BaseModelAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
         # 发出任务,重新生成首页地址
+        from celery_task.tasks import generate_static_index_html
         generate_static_index_html.delay()
         # 清除缓存, 然后访问视图时会更新缓存中的数据
         cache.delete("index_page_data")
@@ -30,6 +30,7 @@ class BaseModelAdmin(admin.ModelAdmin):
         super().delete_model(request, obj)
 
         # 发出任务,重新生成首页地址
+        from celery_task.tasks import generate_static_index_html
         generate_static_index_html.delay()
         # 清除缓存
         cache.delete("index_page_data")

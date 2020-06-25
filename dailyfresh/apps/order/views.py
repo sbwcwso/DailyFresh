@@ -92,7 +92,7 @@ class OrderCommitView(View):
         sku_ids = request.POST.get("sku_ids")
         # 检验数据完整性
         if not all([pay_method, addr_id, sku_ids]):
-            return JsonResponse({'res': 2, 'error_msg': '参数不完整'})
+            return JsonResponse({'res': 2, 'error_msg': '参数不完整, 请检查是否缺少默认的收货地址'})
         # 校验支付方式
         if pay_method not in OrderInfo.PAY_METHOD.keys():
             # todo： 添加其它支付方式
@@ -145,7 +145,6 @@ class OrderCommitView(View):
                         if i == try_times - 1:
                             transaction.savepoint_rollback(sid)
                             return JsonResponse({'res': 7, 'error_msg': '下单失败'})
-                        continue
                     else:
                         # 更新成功，写入数据库，提交事务，跳出乐观锁循环
                         order_good = OrderGoods.objects.create(order=order_info,

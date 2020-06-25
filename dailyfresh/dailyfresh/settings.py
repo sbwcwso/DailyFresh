@@ -160,8 +160,8 @@ DEFAULT_FILE_STORAGE = 'utils.fdfs.storage.FDFSStorage'
 FDFS_CLIENT_CONF = './utils/fdfs/client.conf'
 
 # 设置 fastDFS 储存服务器上 nginx 的 ip 和端口号
-FDFS_URL = 'http://127.0.0.1:8888/'
-# FDFS_URL = 'http://dailyfresh.ignorelist.com:8899/'
+# FDFS_URL = 'http://127.0.0.1:8888/'
+FDFS_URL = 'http://picture.alijunjiea.com/'
 
 # todo　jieba　分词的进一步完善，如将猪肉拆分为猪和肉
 # 全文检索框架配置
@@ -176,7 +176,7 @@ HAYSTACK_CONNECTIONS = {
 # 当添加、修改、删除数据时，自动生成索引
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # 每页显示的搜索结果的页数
-HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 3
 
 # todo: alipay 初始化
 APP_PRIVATE_KEY_STRING = open(os.path.join(BASE_DIR, 'apps/order/app_private_key.pem')).read()

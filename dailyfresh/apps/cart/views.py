@@ -24,19 +24,18 @@ def check_cart_input(request, with_count=True):
         raise ValueError(JsonResponse({'res': 1, 'error_msg': '用户未登录'}))
     # 获取数据
     sku_id = request.POST.get("sku_id")
-    # 为了后续校验数据完整性，如果 with_count 为 False， 则将 count 置为 True
-    count = request.POST.get("count") if with_count else True
+    # 为了后续校验数据完整性，如果 with_count 为 False， 则将 count 置为 1
+    count = request.POST.get("count") if with_count else 1
     # 校验数据完整性
     if not all([sku_id, count]):
         raise ValueError(JsonResponse({'res': 2, 'error_msg': '数据不完整'}))
     # 校验商品数据
-    if with_count:
-        try:
-            count = int(count)
-            if count <= 0:
-                raise ValueError
-        except ValueError:
-            raise ValueError(JsonResponse({'res': 3, 'error_msg': '商品数目出错!'}))
+    try:
+        count = int(count)
+        if count <= 0:
+            raise ValueError
+    except ValueError:
+        raise ValueError(JsonResponse({'res': 3, 'error_msg': '商品数目出错!'}))
     # 检查商品是否存在
     try:
         goods_sku = GoodsSKU.objects.get(id=sku_id)
