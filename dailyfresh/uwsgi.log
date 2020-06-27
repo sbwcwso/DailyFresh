@@ -6349,3 +6349,197 @@ Not Found: /favicon.ico
 [pid: 10317|app: 0|req: 55/78] 192.168.10.146 () {38 vars in 757 bytes} [Sat Jun 27 22:33:23 2020] GET /admin/ => generated 0 bytes in 3 msecs (HTTP/1.1 302) 7 headers in 265 bytes (1 switches on core 1)
 [pid: 10317|app: 0|req: 56/79] 192.168.10.146 () {38 vars in 794 bytes} [Sat Jun 27 22:33:23 2020] GET /admin/login/?next=/admin/ => generated 1821 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 395 bytes (1 switches on core 0)
 [pid: 10317|app: 0|req: 57/80] 192.168.10.146 () {42 vars in 842 bytes} [Sun Jun 28 06:56:42 2020] GET /index?get_info=1 => generated 49 bytes in 4 msecs (HTTP/1.1 200) 4 headers in 114 bytes (1 switches on core 1)
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 28 07:07:15 2020] ***
+compiled with version: 7.5.0 on 27 June 2020 03:27:43
+os: Linux-5.3.0-61-generic #55~18.04.1-Ubuntu SMP Mon Jun 22 16:40:20 UTC 2020
+nodename: lijunjie-Virtual-Machine
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 12
+current working directory: /home/lijunjie/Documents/Django/DailyFresh/dailyfresh
+writing pidfile to uwsgi.pid
+detected binary path: /home/lijunjie/.virtualenvs/DailyFresh/bin/uwsgi
+chdir() to /home/lijunjie/Documents/Django/DailyFresh/dailyfresh
+your processes number limit is 7489
+your memory page size is 4096 bytes
+detected max file descriptor number: 4096
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:8080 fd 3
+Python version: 3.6.9 (default, Apr 18 2020, 01:56:04)  [GCC 8.4.0]
+Set PythonHome to /home/lijunjie/.virtualenvs/DailyFresh
+Python main interpreter initialized at 0x559739cb9c60
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 750096 bytes (732 KB) for 16 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x559739cb9c60 pid: 10427 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 10427)
+spawned uWSGI worker 1 (pid: 10476, cores: 2)
+spawned uWSGI worker 2 (pid: 10478, cores: 2)
+spawned uWSGI worker 3 (pid: 10479, cores: 2)
+spawned uWSGI worker 4 (pid: 10481, cores: 2)
+spawned uWSGI worker 5 (pid: 10483, cores: 2)
+spawned uWSGI worker 6 (pid: 10485, cores: 2)
+spawned uWSGI worker 7 (pid: 10488, cores: 2)
+spawned uWSGI worker 8 (pid: 10490, cores: 2)
+[pid: 10490|app: 0|req: 1/1] 192.168.10.146 () {42 vars in 854 bytes} [Sun Jun 28 07:07:54 2020] GET /index?get_info=1 => generated 49 bytes in 116 msecs (HTTP/1.1 200) 4 headers in 114 bytes (1 switches on core 0)
+[pid: 10490|app: 0|req: 2/2] 192.168.10.146 () {42 vars in 956 bytes} [Sun Jun 28 07:07:57 2020] GET /goods/20 => generated 9361 bytes in 77 msecs (HTTP/1.1 200) 5 headers in 292 bytes (1 switches on core 1)
+[pid: 10488|app: 0|req: 1/3] 192.168.10.146 () {48 vars in 1051 bytes} [Sun Jun 28 07:07:58 2020] POST /cart/add_cart => generated 26 bytes in 97 msecs (HTTP/1.1 200) 4 headers in 114 bytes (1 switches on core 0)
+[pid: 10490|app: 0|req: 3/4] 192.168.10.146 () {42 vars in 958 bytes} [Sun Jun 28 07:07:59 2020] GET /cart/ => generated 10095 bytes in 15 msecs (HTTP/1.1 200) 5 headers in 293 bytes (1 switches on core 0)
+[pid: 10490|app: 0|req: 4/5] 192.168.10.146 () {50 vars in 1160 bytes} [Sun Jun 28 07:08:00 2020] POST /order/place => generated 5855 bytes in 20 msecs (HTTP/1.1 200) 5 headers in 292 bytes (1 switches on core 1)
+[pid: 10490|app: 0|req: 5/6] 192.168.10.146 () {48 vars in 1052 bytes} [Sun Jun 28 07:08:02 2020] POST /order/commit => generated 10 bytes in 22 msecs (HTTP/1.1 200) 4 headers in 114 bytes (1 switches on core 0)
+[pid: 10490|app: 0|req: 6/7] 192.168.10.146 () {42 vars in 975 bytes} [Sun Jun 28 07:08:06 2020] GET /user/order/1 => generated 7905 bytes in 60 msecs (HTTP/1.1 200) 5 headers in 292 bytes (1 switches on core 1)
+[pid: 10490|app: 0|req: 7/8] 192.168.10.146 () {48 vars in 1047 bytes} [Sun Jun 28 07:08:08 2020] POST /order/pay => generated 1332 bytes in 14 msecs (HTTP/1.1 200) 4 headers in 116 bytes (1 switches on core 0)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+worker 5 buried after 1 seconds
+worker 6 buried after 1 seconds
+worker 7 buried after 1 seconds
+worker 8 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 28 07:13:49 2020] ***
+compiled with version: 7.5.0 on 27 June 2020 03:27:43
+os: Linux-5.3.0-61-generic #55~18.04.1-Ubuntu SMP Mon Jun 22 16:40:20 UTC 2020
+nodename: lijunjie-Virtual-Machine
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 12
+current working directory: /home/lijunjie/Documents/Django/DailyFresh/dailyfresh
+writing pidfile to uwsgi.pid
+detected binary path: /home/lijunjie/.virtualenvs/DailyFresh/bin/uwsgi
+chdir() to /home/lijunjie/Documents/Django/DailyFresh/dailyfresh
+your processes number limit is 7489
+your memory page size is 4096 bytes
+detected max file descriptor number: 4096
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:8080 fd 3
+Python version: 3.6.9 (default, Apr 18 2020, 01:56:04)  [GCC 8.4.0]
+Set PythonHome to /home/lijunjie/.virtualenvs/DailyFresh
+Python main interpreter initialized at 0x55ce0091fc70
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 750096 bytes (732 KB) for 16 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x55ce0091fc70 pid: 11760 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 11760)
+spawned uWSGI worker 1 (pid: 11810, cores: 2)
+spawned uWSGI worker 2 (pid: 11811, cores: 2)
+spawned uWSGI worker 3 (pid: 11813, cores: 2)
+spawned uWSGI worker 4 (pid: 11815, cores: 2)
+spawned uWSGI worker 5 (pid: 11817, cores: 2)
+spawned uWSGI worker 6 (pid: 11819, cores: 2)
+spawned uWSGI worker 7 (pid: 11821, cores: 2)
+spawned uWSGI worker 8 (pid: 11823, cores: 2)
+[pid: 11823|app: 0|req: 1/1] 192.168.10.146 () {48 vars in 1047 bytes} [Sun Jun 28 07:13:55 2020] POST /order/pay => generated 1350 bytes in 114 msecs (HTTP/1.1 200) 4 headers in 116 bytes (1 switches on core 0)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+worker 5 buried after 1 seconds
+worker 6 buried after 1 seconds
+worker 7 buried after 1 seconds
+worker 8 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 28 07:15:19 2020] ***
+compiled with version: 7.5.0 on 27 June 2020 03:27:43
+os: Linux-5.3.0-61-generic #55~18.04.1-Ubuntu SMP Mon Jun 22 16:40:20 UTC 2020
+nodename: lijunjie-Virtual-Machine
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 12
+current working directory: /home/lijunjie/Documents/Django/DailyFresh/dailyfresh
+writing pidfile to uwsgi.pid
+detected binary path: /home/lijunjie/.virtualenvs/DailyFresh/bin/uwsgi
+chdir() to /home/lijunjie/Documents/Django/DailyFresh/dailyfresh
+your processes number limit is 7489
+your memory page size is 4096 bytes
+detected max file descriptor number: 4096
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:8080 fd 3
+Python version: 3.6.9 (default, Apr 18 2020, 01:56:04)  [GCC 8.4.0]
+Set PythonHome to /home/lijunjie/.virtualenvs/DailyFresh
+Python main interpreter initialized at 0x560e8554fc70
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 750096 bytes (732 KB) for 16 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x560e8554fc70 pid: 12048 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 12048)
+spawned uWSGI worker 1 (pid: 12099, cores: 2)
+spawned uWSGI worker 2 (pid: 12100, cores: 2)
+spawned uWSGI worker 3 (pid: 12102, cores: 2)
+spawned uWSGI worker 4 (pid: 12104, cores: 2)
+spawned uWSGI worker 5 (pid: 12106, cores: 2)
+spawned uWSGI worker 6 (pid: 12108, cores: 2)
+spawned uWSGI worker 7 (pid: 12110, cores: 2)
+spawned uWSGI worker 8 (pid: 12112, cores: 2)
+[pid: 12110|app: 0|req: 1/1] 192.168.10.146 () {42 vars in 833 bytes} [Sun Jun 28 07:15:29 2020] GET /index?get_info=1 => generated 49 bytes in 102 msecs (HTTP/1.1 200) 4 headers in 114 bytes (1 switches on core 0)
+[pid: 12108|app: 0|req: 1/2] 192.168.10.146 () {42 vars in 943 bytes} [Sun Jun 28 07:15:31 2020] GET /user/order/1 => generated 7905 bytes in 163 msecs (HTTP/1.1 200) 5 headers in 292 bytes (1 switches on core 0)
+[pid: 12110|app: 0|req: 2/3] 192.168.10.146 () {48 vars in 1026 bytes} [Sun Jun 28 07:15:32 2020] POST /order/pay => generated 1338 bytes in 13 msecs (HTTP/1.1 200) 4 headers in 116 bytes (1 switches on core 1)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+worker 5 buried after 1 seconds
+worker 6 buried after 1 seconds
+worker 7 buried after 1 seconds
+worker 8 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.18 (64bit) on [Sun Jun 28 07:18:17 2020] ***
+compiled with version: 7.5.0 on 27 June 2020 03:27:43
+os: Linux-5.3.0-61-generic #55~18.04.1-Ubuntu SMP Mon Jun 22 16:40:20 UTC 2020
+nodename: lijunjie-Virtual-Machine
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 12
+current working directory: /home/lijunjie/Documents/Django/DailyFresh/dailyfresh
+writing pidfile to uwsgi.pid
+detected binary path: /home/lijunjie/.virtualenvs/DailyFresh/bin/uwsgi
+chdir() to /home/lijunjie/Documents/Django/DailyFresh/dailyfresh
+your processes number limit is 7489
+your memory page size is 4096 bytes
+detected max file descriptor number: 4096
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:8080 fd 3
+Python version: 3.6.9 (default, Apr 18 2020, 01:56:04)  [GCC 8.4.0]
+Set PythonHome to /home/lijunjie/.virtualenvs/DailyFresh
+Python main interpreter initialized at 0x560fc9c4fc70
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 750096 bytes (732 KB) for 16 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x560fc9c4fc70 pid: 12475 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 12475)
+spawned uWSGI worker 1 (pid: 12526, cores: 2)
+spawned uWSGI worker 2 (pid: 12527, cores: 2)
+spawned uWSGI worker 3 (pid: 12529, cores: 2)
+spawned uWSGI worker 4 (pid: 12531, cores: 2)
+spawned uWSGI worker 5 (pid: 12533, cores: 2)
+spawned uWSGI worker 6 (pid: 12535, cores: 2)
+spawned uWSGI worker 7 (pid: 12537, cores: 2)
+spawned uWSGI worker 8 (pid: 12539, cores: 2)
+[pid: 12539|app: 0|req: 1/1] 192.168.10.146 () {48 vars in 1047 bytes} [Sun Jun 28 07:18:24 2020] POST /order/pay => generated 1336 bytes in 121 msecs (HTTP/1.1 200) 4 headers in 116 bytes (1 switches on core 0)
+[pid: 12537|app: 0|req: 1/2] 192.168.10.146 () {32 vars in 498 bytes} [Sun Jun 28 07:18:41 2020] POST /order/notify => generated 27 bytes in 136 msecs (HTTP/1.1 500) 4 headers in 126 bytes (1 switches on core 0)
+[pid: 12539|app: 0|req: 2/3] 192.168.10.146 () {40 vars in 2210 bytes} [Sun Jun 28 07:18:50 2020] GET /order/check?charset=utf-8&out_trade_no=202006280708026&method=alipay.trade.page.pay.return&total_amount=17.90&sign=cnqlsBSGzs%2BJCnyhiCS9MXo%2BDHE2y936CX6pk95RmE%2BhyEcaFX8GFIQvcI%2F6Ez8aoH7rP%2BHauh0vOvsn5dPNYo8zwuvSlyFweeRsS76uIIGVjFsRQCeqfADtyK7M%2BQ37lBVikY5MBaaDxldnFMsaq27oIjdzboacxsHDymeuz99psjj3w1xLvbCkbP9Vm1Hn0R4f%2BTx38zCV23mpbkNrtG76OsGRx2nyQd0W%2FSSHKC75dKI166KGllBHCeo7WoCyW1JMful1KbJvEfGRFpqQrZGpYGior8iEbj0xoy3GM4TRilFAxS35cMRMAmKU%2BzbSuQTXUsyCjEjG9TFWO6EVSw%3D%3D&trade_no=2020062822001470820501096271&auth_app_id=2016092800615022&version=1.0&app_id=2016092800615022&sign_type=RSA2&seller_id=2088102177635583&timestamp=2020-06-28+07%3A18%3A47 => generated 75 bytes in 314 msecs (HTTP/1.1 200) 3 headers in 108 bytes (1 switches on core 1)
+[pid: 12537|app: 0|req: 2/4] 192.168.10.146 () {42 vars in 1624 bytes} [Sun Jun 28 07:18:53 2020] GET /user/order/1 => generated 7905 bytes in 50 msecs (HTTP/1.1 200) 5 headers in 292 bytes (1 switches on core 1)

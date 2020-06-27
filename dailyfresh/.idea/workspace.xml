@@ -30,6 +30,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/uwsgi.log" beforeDir="false" afterPath="$PROJECT_DIR$/uwsgi.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uwsgi.pid" beforeDir="false" afterPath="$PROJECT_DIR$/uwsgi.pid" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uwsgi_server.ini" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/uwsgi_server.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/uwsgi_server.pid" beforeDir="false" />
@@ -212,7 +213,7 @@
       <workItem from="1593054148815" duration="979000" />
       <workItem from="1593061133432" duration="9145000" />
       <workItem from="1593174257021" duration="10486000" />
-      <workItem from="1593263332707" duration="4436000" />
+      <workItem from="1593263332707" duration="5533000" />
     </task>
     <servers />
   </component>
