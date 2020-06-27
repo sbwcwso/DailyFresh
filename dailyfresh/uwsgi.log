@@ -6348,3 +6348,4 @@ Not Found: /favicon.ico
 [pid: 10317|app: 0|req: 54/77] 192.168.10.146 () {38 vars in 755 bytes} [Sat Jun 27 22:33:23 2020] GET /admin => generated 0 bytes in 0 msecs (HTTP/1.1 301) 3 headers in 112 bytes (1 switches on core 0)
 [pid: 10317|app: 0|req: 55/78] 192.168.10.146 () {38 vars in 757 bytes} [Sat Jun 27 22:33:23 2020] GET /admin/ => generated 0 bytes in 3 msecs (HTTP/1.1 302) 7 headers in 265 bytes (1 switches on core 1)
 [pid: 10317|app: 0|req: 56/79] 192.168.10.146 () {38 vars in 794 bytes} [Sat Jun 27 22:33:23 2020] GET /admin/login/?next=/admin/ => generated 1821 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 395 bytes (1 switches on core 0)
+[pid: 10317|app: 0|req: 57/80] 192.168.10.146 () {42 vars in 842 bytes} [Sun Jun 28 06:56:42 2020] GET /index?get_info=1 => generated 49 bytes in 4 msecs (HTTP/1.1 200) 4 headers in 114 bytes (1 switches on core 1)
