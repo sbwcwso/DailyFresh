@@ -217,5 +217,6 @@ fabric.properties
 .history/
 
 # new add
-__pycache__
+__pycache__/
+.idea/
 app_private_key.pem
