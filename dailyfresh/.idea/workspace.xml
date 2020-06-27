@@ -26,19 +26,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41bc7585-b4f9-4c0f-9cdf-41b84f7a2126" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/lijunjie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/lijunjie.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/cart/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/cart/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/goods/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/goods/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/goods/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/goods/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/order/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/order/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/order/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/order/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/order/views_backup.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/celery_task/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/celery_task/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dailyfresh/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dailyfresh/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dailyfresh/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dailyfresh/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/search/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/mixin.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/mixin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user_center_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user_center_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uwsgi.ini" beforeDir="false" afterPath="$PROJECT_DIR$/uwsgi.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +97,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
   </component>
   <component name="RecentsManager">
@@ -214,7 +213,8 @@
       <workItem from="1592351790806" duration="16525000" />
       <workItem from="1592607805894" duration="14251000" />
       <workItem from="1593054148815" duration="979000" />
-      <workItem from="1593061133432" duration="819000" />
+      <workItem from="1593061133432" duration="9145000" />
+      <workItem from="1593174257021" duration="7013000" />
     </task>
     <servers />
   </component>
@@ -269,6 +269,10 @@
       <screen x="67" y="27" width="1297" height="741" />
     </state>
     <state x="523" y="115" width="374" height="562" key="#com.intellij.ide.util.MemberChooser/67.27.1297.741@67.27.1297.741" timestamp="1591433693964" />
+    <state x="726" y="390" width="525" height="325" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1593223114441">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="726" y="390" width="525" height="325" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/67.27.1853.1053@67.27.1853.1053" timestamp="1593223114441" />
     <state x="771" y="309" width="424" height="484" key="FileChooserDialogImpl" timestamp="1592030734161">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

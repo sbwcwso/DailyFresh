@@ -26,7 +26,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'xa1$qs6-nw$5a1!e-!%ztnsb+^1t7%wi$bru!ik)%x39iehmz#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce',
-    'haystack',  # 注册全文检索框架
+    'haystack',  # 注册全文 检索框架
     'user',
     'cart',
     'goods',

@@ -158,7 +158,7 @@ class GoodsListView(ListViewMixin, ListView):
             try:
                 goods_type = GoodsType.objects.get(id=type_id)
             except GoodsType.DoesNotExist:
-                return redirect(reverse("goods:index"))
+                return redirect(reverse('goods:index'))
         else:
             goods_type = GoodsType()
             goods_type.id = 0

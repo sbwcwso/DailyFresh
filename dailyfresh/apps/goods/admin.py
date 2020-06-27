@@ -17,8 +17,9 @@ class BaseModelAdmin(admin.ModelAdmin):
         """
         super().save_model(request, obj, form, change)
 
-        # 发出任务,重新生成首页地址
+        # 如果在头部导入，会因为循环导入而报错
         from celery_task.tasks import generate_static_index_html
+        # 发出任务,重新生成首页地址
         generate_static_index_html.delay()
         # 清除缓存, 然后访问视图时会更新缓存中的数据
         cache.delete("index_page_data")
@@ -29,8 +30,9 @@ class BaseModelAdmin(admin.ModelAdmin):
         """
         super().delete_model(request, obj)
 
-        # 发出任务,重新生成首页地址
+        # 如果在头部导入，会因为循环导入而报错
         from celery_task.tasks import generate_static_index_html
+        # 发出任务,重新生成首页地址
         generate_static_index_html.delay()
         # 清除缓存
         cache.delete("index_page_data")
@@ -59,3 +61,4 @@ admin.site.register(IndexPromotionBanner, IndexPromotionBannerAdmin)
 admin.site.register(IndexGoodsBanner, IndexGoodsBannerAdmin)
 admin.site.register(Goods)
 admin.site.register(IndexTypeGoodsBanner, IndexTypeGoodsBannerAdmin)
+

@@ -46,5 +46,5 @@ def generate_static_index_html():
     static_index_html = temp.render(content_text)
     # 生成首页对应的静态页面
     save_path = os.path.join(settings.BASE_DIR, 'static/index.html')
-    with open(save_path, 'w', encoding='utf8') as f:
-        f.write(static_index_html)
+    with open(save_path, 'w', encoding='utf8') as file_des:
+        file_des.write(static_index_html)

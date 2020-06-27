@@ -70,6 +70,7 @@
 {% block bottomfiles %}
     <script src="{% static 'js/jquery-1.12.4.min.js'%}"></script>
     <script>
+        {# 根据状态码显示相关的消息 #}
         $(".oper_btn").each(function(){
             let order_status = $(this).attr("order_status");
             if(order_status == 1) $(this).text("去付款");
@@ -82,41 +83,25 @@
         $(".oper_btn").click(function(){
             let order_status = $(this).attr("order_status");
             let order_id = $(this).attr("order_id");
-            let csrfmiddlewaretoken = $("input[name='csrfmiddlewaretoken']").val();
             let paras = {
                 'order_id': order_id,
-                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+                'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val(),
             };
             if(order_status == 1){
                 $.post("{% url 'order:pay' %}", paras, function(data){
                     if(data.res == 0){
-                        {#window.open(data.pay_url);#}
+                        /** @namespace data.pay_url**/
+                        {# 跳转至支付页面 #}
                         location.href = data.pay_url;
-                        {#查询支付结果#}
-                        /*
-                        $('.popup_con').fadeIn('fast');
-                        $.post("{% url 'order:check' %}", paras, function(data){
-                            if(data.res == 0){
-                                $('.popup_con').fadeOut('fast');
-                                alert("支付成功");
-                                location.reload()
-                            }
-                            else{
-                                $('.popup_con').fadeOut('fast');
-                                alert(data.errmsg);
-                            }
-
-                        });
-                        */
                     }
                     else{
-                        alert(data.errmsg);
+                        alert(data.error_msg);
                     }
                 });
             }
             else if(order_status == 4){
                 {#跳转到评论界面#}
-                location.href = "/order/comment/" + order_id
+                location.href = '{% url "order:comment" 12345%}'.replace("12345", order_id);
             }
         });
     </script>

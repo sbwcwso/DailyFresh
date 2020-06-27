@@ -170,33 +170,39 @@ class OrderCommitView(View):
 
 # /oder/pay
 class OrderPayView(View):
-    """调用 alipay 接口进行支付"""
+    """
+    调用 alipay 接口进行支付
+    """
     def post(self, request):
-        """ajax post 进行支付"""
-        # todo: 判断用户是否登录
+        """
+        ajax post 进行支付
+        """
+        # 判断用户是否登录
         user = request.user
         if not user.is_authenticated:
-            return JsonResponse({'res': 1, 'errmsg': '用户未登录'})
-        # todo: 接收参数
+            return JsonResponse({'res': 1, 'error_msg': '用户未登录'})
+        # 接收参数
         order_id = request.POST.get('order_id')
-        # todo: 校验参数
+        # 校验参数
         if not order_id:
-            return JsonResponse({'res': 2, 'errmsg': '参数不完整'})
+            return JsonResponse({'res': 2, 'error_msg': '参数不完整'})
         try:
             order = OrderInfo.objects.get(order_id=order_id, user=user, order_status=1, pay_method=3)
         except OrderInfo.DoesNotExist:
-            return JsonResponse({'res': 3, 'errmsg': '订单错误'})
-        # todo: 业务处理: 使用 Python sdk 调用支付宝接口支付
+            return JsonResponse({'res': 3, 'error_msg': '订单错误'})
+        # 业务处理: 使用 Python sdk 调用支付宝接口支付
         # 调用 api 接口
         # 电脑网站支付，需要跳转到https://openapi.alipay.com/gateway.do? + order_string
         total_amount = order.total_price + order.transit_price
-        subject = "天天生鲜_%s" % order.order_id
+        subject = "天天生鲜_%s" % order.order_id + " 沙箱测试，请选择登录帐户支付，帐号及密码见订单详情"
+        body = "测试用支付帐号：dsgsme3919@sandbox.com, 登录密码：111111, 支付密码：111111"
         order_string = settings.ALIPAY.api_alipay_trade_page_pay(
             out_trade_no=order.order_id,
             total_amount=str(total_amount),
             subject=subject,
-            return_url="http://dailyfresh.ignorelist.com/order/check",
-            notify_url="http://45.77.124.42/order/notify",  # 可选, 不填则使用默认notify url
+            body=body,
+            return_url="http://dailyfresh.alijunjiea.com/order/check",
+            notify_url="http://dailyfresh.alijunjiea.com/order/notify",
         )
         pay_url = "https://openapi.alipaydev.com/gateway.do?" + order_string
         # todo: 返回应答
@@ -205,73 +211,44 @@ class OrderPayView(View):
 
 # /order/check
 class OrderCheckView(View):
-    """订单支付状态查询"""
+    """
+    Alipay return url 返回的地址
+    """
     def get(self, request):
         """Alipay 访问 return url"""
         data = request.GET.dict()
         signature = data.pop("sign")
-
         # 验证数据
-        success = settings.ALIPAY.verify(data, signature)
+        success = settings.ALIPAY.verify(data, signature) if all([data, signature]) else False
         if success:
             order_id = data.get("out_trade_no", None)
             try:
                 order = OrderInfo.objects.get(order_id=order_id)
             except OrderInfo.DoesNotExist:
-                return "<h2>订单错误<\h2>"
+                return "<h2>订单错误</h2>"
             response = settings.ALIPAY.api_alipay_trade_query(out_trade_no=order.order_id)
             code = response['code']
             if code == "10000" and response['trade_status'] == 'TRADE_SUCCESS':
-                # 支付成功,更新订单状态,并返回结果
-                order.trade_no = data['trade_no']
-                order.order_status = 4  # 直接设置为待评价
-                order.save()
-                return HttpResponse("<h2>订单支付成功!!</h2><br><a href='/user/order/1'>前往订单页面<a>")
+                # 支付成功, 返回结果
+                return HttpResponse('<h2>订单支付完成</h2><br><a href={}>前往订单页面</a>'
+                                    .format(reverse('user:order', kwargs={'page': 1})))
             else:
-                return HttpResponse("<h2>订单异常!</h2><br><a href='/user/order/1'>前往订单页面<a>")
-        return HttpResponse("<h2>非法请求!</h2><br><a href='/user/order/1'>前往订单页面<a>")
-
-    def post(self, request):
-        """ajax post 获取支付状态"""
-        # todo: 判断用户是否登录
-        user = request.user
-        if not user.is_authenticated:
-            return JsonResponse({'res': 1, 'errmsg': '用户未登录'})
-        # todo: 接收参数
-        order_id = request.POST.get('order_id')
-        # todo: 校验参数
-        if not order_id:
-            return JsonResponse({'res': 2, 'errmsg': '参数不完整'})
-        try:
-            order = OrderInfo.objects.get(order_id=order_id, user=user, order_status=1, pay_method=3)
-        except OrderInfo.DoesNotExist:
-            return JsonResponse({'res': 3, 'errmsg': '订单错误'})
-        # todo: 业务处理: 使用 Python sdk 调用支付宝接口支付
-        # 调用 api 接口
-        while True:
-            count += 1
-            settings.ALIPAY.verify()
-            response = settings.ALIPAY.api_alipay_trade_query(out_trade_no=order.order_id)
-            code = response['code']
-            if code == "10000" and response['trade_status'] == 'TRADE_SUCCESS':
-                # 支付成功,更新订单状态,并返回结果
-                order.trade_no = response['trade_no']
-                order.order_status = 4  # 直接设置为待评价
-                order.save()
-                return JsonResponse({'res': 0})
-            elif code == "40004" or (code == "10000" and response['trade_status'] == 'WAIT_BUYER_PAY'):
-                # 业务处理失败或等待用户付款, 等待一段时间后继续尝试
-                time.sleep(10)
-                continue
-            else:
-                return JsonResponse({'res': 4, 'errmsg': '支付失败'})
+                return HttpResponse('<h2>订单异常!</h2><br><a href={}>前往订单页面</a>'
+                                    .format(reverse('user:order', kwargs={'page': 1})))
+        return HttpResponse('<h2>非法请求</h2><br><a href={}>前往订单页面</a>'
+                            .format(reverse('user:order', kwargs={'page': 1})))
 
 
 # /order/notify
 class OrderNotifyView(View):
-    """通过 notifyurl 判断订单是否支付成功"""
+    """
+    Alipay 通过 notifyurl 来更新订单的状态
+    """
     # @csrf_exempt
     def post(self, request):
+        """
+        Alipay 通过　post 请求访问　notifyurl
+        """
         data = request.POST.dict()
         signature = data.pop("sign")
 
@@ -282,22 +259,22 @@ class OrderNotifyView(View):
             try:
                 order = OrderInfo.objects.get(order_id=order_id)
             except OrderInfo.DoesNotExist:
-                return "<h2>订单错误<\h2>"
+                return "<h2>订单错误</h2>"
             # 支付成功,更新订单状态,并返回结果
             order.trade_no = data['trade_no']
             order.order_status = 4  # 直接设置为待评价
             order.save()
-            return HttpResponse("<h2>订单支付成功!!</h2><br><a href='/user/order/1'>前往订单页面<a>")
-
-        return HttpResponse("<h2>非法请求!</h2><br><a href='/user/order/1'>前往订单页面<a>")
 
 
 # /order/comment/oder_id
 class OrderCommentView(LoginRequiredMixin, View):
-    """定单评论"""
+    """
+    订单评论
+    """
     def get(self, request, order_id):
-        """get 请求, 显示评论页面"""
-        # todo: 校验参数
+        """
+        get 请求, 显示评论页面
+        """
         user = request.user
         try:
             order = OrderInfo.objects.get(order_id=order_id, user=user, order_status=4)
@@ -312,16 +289,18 @@ class OrderCommentView(LoginRequiredMixin, View):
 
     @transaction.atomic
     def post(self, request, order_id):
-        """post 请求, 向数据库中添加评论信息"""
-        # todo: 获取相关参数
+        """
+        post 请求, 向数据库中添加评论信息
+        """
+        # 获取相关参数
         order_id = request.POST.get('order_id')
-        # todo: 校验参数
+        # 校验参数
         user = request.user
         try:
             order = OrderInfo.objects.get(order_id=order_id, user=user, order_status=4)
         except OrderInfo.DoesNotExist:
             return redirect(reverse("user:order"))
-        # todo: 获取并添加评论信息
+        # 获取并添加评论信息
         order_goods = OrderGoods.objects.filter(order_id=order_id)
         total_count = len(order_goods)  # 商品的种类数
         sid = transaction.savepoint()

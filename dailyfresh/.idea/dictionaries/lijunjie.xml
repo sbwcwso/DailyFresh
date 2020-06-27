@@ -7,6 +7,7 @@
       <w>cpwd</w>
       <w>cscfmiddlewaretoken</w>
       <w>csrfmiddlewaretoken</w>
+      <w>daemonize</w>
       <w>dailyfresh</w>
       <w>fastdfs</w>
       <w>fdfs</w>
@@ -20,7 +21,10 @@
       <w>navbar</w>
       <w>navlist</w>
       <w>nginx</w>
+      <w>notifyurl</w>
+      <w>openapi</w>
       <w>pagenation</w>
+      <w>pidfile</w>
       <w>pindex</w>
       <w>pirze</w>
       <w>skus</w>
@@ -29,6 +33,8 @@
       <w>subnav</w>
       <w>successed</w>
       <w>tinymce</w>
+      <w>uwsgi</w>
+      <w>virtualenvs</w>
       <w>weixin</w>
       <w>yahei</w>
       <w>zhifubao</w>
