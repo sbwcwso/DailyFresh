@@ -1,10 +1,40 @@
-{% extends 'static_base.html' %}
+{% extends 'base.html' %}
 {% load staticfiles %}
 {% block topfiles %}
 	<script type="text/javascript" src={% static "js/jquery-1.12.4.min.js" %}></script>
 	<script type="text/javascript" src={% static "js/jquery-ui.min.js"%}></script>
 	<script type="text/javascript" src={% static  "js/slide.js" %}></script>
 {% endblock topfiles %}
+
+	{% block header_con %}
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到天天生鲜!</div>
+			<div class="fr">
+				<div class="login_btn fl" style="display: none;">
+					欢迎您：<em></em>
+					<span>|</span>
+					<a href="{% url 'user:logout' %}">退出登录</a>
+				</div>
+				<div class="login_btn fl" style="display: none";>
+					<a href="{% url 'user:login' %}">登录</a>
+					<span>|</span>
+					<a href="{% url 'user:register' %}">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="{% url 'user:user' %}">用户中心</a>
+					<span>|</span>
+					<a href="{% url 'cart:show_cart' %}">我的购物车</a>
+					<span>|</span>
+					<a href="{% url 'user:order' 1%}">我的订单</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endblock header_con %}
+
+
 {% block body %}
 	<div class="navbar_con">
 		<div class="navbar">
