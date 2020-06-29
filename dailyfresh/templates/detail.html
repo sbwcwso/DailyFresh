@@ -35,8 +35,8 @@
                         <a href="{% url 'goods:detail' same_spu.id %}">{{ same_spu.name }}</a>
                     {% endfor %}
                 </div>
-			</div>
             {% endif %}
+			</div>
 			<div class="total">总价：<em>{{ sku.price }}</em></div>
 			<div class="operate_btn">
                 {# <a href="javascript:;" class="buy_btn">立即购买</a>#}
@@ -91,6 +91,12 @@
 {% endblock main_content %}
 {% block bottom %}
 	<div class="add_jump"></div>
+	<div class="popup_con">
+		<div class="popup">
+			<p>用户未登录，正在跳转至登录界面, 请稍候...</p>
+		</div>
+		<div class="mask"></div>
+	</div>
 {% endblock bottom %}
 {% block bottomfiles %}
 	<script type="text/javascript" src={% static "js/jquery-1.12.4.min.js" %}></script>
@@ -119,8 +125,21 @@
                  /** @namespace data.error_msg **/
                  /** @namespace data.goods_num **/
                 if(data.res){
-                    // 添加购物车错误， 显示错误信息
-                    alert(data.error_msg)
+                    if(data.res == 1){
+                        $('.popup_con').fadeIn('fast', function() {
+
+                            setTimeout(function(){
+                                $('.popup_con').fadeOut('fast',function(){
+                                    window.location.href = "{% url 'user:login' %}?next={{ request.path }}"
+                                });
+                            },3000)
+
+                        });
+                    }
+                    else{
+                        // 添加购物车错误， 显示错误信息
+                        alert(data.error_msg)
+                    }
                 }
                 else{
                     // 添加购物车成功，显示相应的动画界面
