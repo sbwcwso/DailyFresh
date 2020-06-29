@@ -4,7 +4,7 @@
 sudo service fdfs_trackerd start
 sudo service fdfs_storaged start
 
-# 启动nginx 服务
+# 启动nginx 服务，指定配置文件的位置
 sudo /usr/local/nginx/sbin/nginx -c /home/lijunjie/Documents/Django/DailyFresh/conf/nginx/nginx.conf
 
 # 启动　redis
