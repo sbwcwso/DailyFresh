@@ -18,7 +18,7 @@
 			<h3>{{ sku.goods.name }}</h3>
 			<p>{{ sku.desc }}</p>
 			<div class="prize_bar">
-				<span class="show_pirze">¥<em>{{ sku.price }}</em></span>
+				<span class="show_price">价 格：¥<em>{{ sku.price }}</em></span>
 				<span class="show_unit">单  位：{{ sku.unite }}</span>
 			</div>
 			<div class="goods_num clearfix">
@@ -98,7 +98,7 @@
         update_total_price();
 
         function update_total_price(){
-            let price = $('.show_pirze').children('em').text();
+            let price = $('.show_price').children('em').text();
             let count = $('.num_show').val();
             let total_price = parseFloat(price) * parseInt(count);
 
@@ -197,8 +197,5 @@
             $("#tab_detail").show();
             $("#tab_comment").hide();
         });
-
-
-
     </script>
 {% endblock bottomfiles %}
