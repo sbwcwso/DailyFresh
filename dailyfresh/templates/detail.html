@@ -28,14 +28,14 @@
 					<a href="javascript:" class="add fr">+</a>
 					<a href="javascript:" class="minus fr">-</a>
 				</div>
-			</div>
             {% if same_spus|length > 0 %}
                 <div style="font:normal 14px/52px 'Microsoft Yahei';" >
-                    <span>其它规格商品:&nbsp;&nbsp;&nbsp;</span>
+                    <span>&nbsp;&nbsp;&nbsp;其它规格商品:&nbsp;&nbsp;&nbsp;</span>
                     {% for same_spu in same_spus %}
                         <a href="{% url 'goods:detail' same_spu.id %}">{{ same_spu.name }}</a>
                     {% endfor %}
                 </div>
+			</div>
             {% endif %}
 			<div class="total">总价：<em>{{ sku.price }}</em></div>
 			<div class="operate_btn">
