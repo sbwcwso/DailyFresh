@@ -115,7 +115,7 @@ class OrderCommitView(View):
             # 商品总价格
             total_price = 0
             order_id = datetime.now().strftime("%Y%m%d%H%M%S") + str(user.id)  # 201808081020(年月日时分秒)+user_id
-            order_info = OrderInfo.objects.create(order_id=order_id, user=user, addr=addr,
+            order = OrderInfo.objects.create(order_id=order_id, user=user, addr=addr,
                                                   pay_method=pay_method, total_count=total_count,
                                                   total_price=total_price, transit_price=trans_price,
                                                   )
@@ -147,15 +147,15 @@ class OrderCommitView(View):
                             return JsonResponse({'res': 7, 'error_msg': '下单失败'})
                     else:
                         # 更新成功，写入数据库，提交事务，跳出乐观锁循环
-                        order_good = OrderGoods.objects.create(order=order_info,
+                        order_good = OrderGoods.objects.create(order=order,
                                                                sku=sku, count=count, price=count * sku.price)
                         total_count += count
                         total_price += order_good.price
                         break
             # 更新订单信息中的商品总价数和总价格
-            order_info.total_price = total_price
-            order_info.total_count = total_count
-            order_info.save()
+            order.total_price = total_price
+            order.total_count = total_count
+            order.save()
         except Exception as err:
             transaction.savepoint_rollback(sid)
             return JsonResponse({'res': 8, 'error_msg': '下单失败{}'.format(err.args)})
@@ -165,7 +165,7 @@ class OrderCommitView(View):
             # 删除购物车中的相关商品
             conn.hdel(cart_key, *sku_ids)
 
-        return JsonResponse({'res': 0})
+        return JsonResponse({'res': 0, 'pay_url': OrderPayView.get_alipay_url(order)})
 
 
 # /oder/pay
@@ -190,7 +190,14 @@ class OrderPayView(View):
             order = OrderInfo.objects.get(order_id=order_id, user=user, order_status=1, pay_method=3)
         except OrderInfo.DoesNotExist:
             return JsonResponse({'res': 3, 'error_msg': '订单错误'})
-        # 业务处理: 使用 Python sdk 调用支付宝接口支付
+
+        return JsonResponse({'res': 0, 'pay_url': self.get_alipay_url(order)})
+
+    @staticmethod
+    def get_alipay_url(order):
+        """
+        使用 Python sdk 调用支付宝的支付链接
+        """
         # 调用 api 接口
         # 电脑网站支付，需要跳转到https://openapi.alipay.com/gateway.do? + order_string
         total_amount = order.total_price + order.transit_price
@@ -204,9 +211,7 @@ class OrderPayView(View):
             return_url="http://dailyfresh.alijunjiea.com/order/check",
             notify_url="http://dailyfresh.alijunjiea.com/order/notify",
         )
-        pay_url = "https://openapi.alipaydev.com/gateway.do?" + order_string
-        # todo: 返回应答
-        return JsonResponse({'res': 0, 'pay_url': pay_url})
+        return "https://openapi.alipaydev.com/gateway.do?" + order_string
 
 
 # /order/check
