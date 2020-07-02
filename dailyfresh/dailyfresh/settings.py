@@ -17,6 +17,7 @@ from alipay import AliPay
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# 让项目可以搜索到 apps 目录下的 app
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 # Quick-start development settings - unsuitable for production
