@@ -4,7 +4,7 @@ asgiref==3.2.7
 astroid==2.4.1
 billiard==3.3.0.23
 celery==3.1.25
-Django==2.1.7
+Django==2.2.24
 django-haystack==2.8.1
 django-redis==4.10.0
 django-tinymce==3.0.2
